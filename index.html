@@ -3,56 +3,672 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sinny's Palace: Curated Content Hub</title>
+    <title>Sinny's Palace: Multitool Hub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Inter for a clean, modern look -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Base CSS Variables for Theming */
+        :root {
+            --primary-bg: #1a202c;
+            --secondary-bg: #2d3748;
+            --tertiary-bg: #4a5568; /* For inputs/darker elements */
+            --text-primary: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --accent-color: #63b3ed; /* Default blue accent */
+            --button-bg: #4299e1;
+            --button-text: #ffffff;
+            --button-hover-bg: #3182ce;
+            --border-color: #4a5568;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --modal-bg: #2d3748;
+            --modal-border: #4a5568;
+            --accent-color-rgb: 99, 179, 237; /* Default RGB for pulse animation */
+        }
+
+        /* Theme Overrides (20 Themes) */
+        /* Fire Inferno Theme (Default) */
+        .theme-fire-inferno {
+            --primary-bg: #1a0a0a;
+            --secondary-bg: #3b0f0f;
+            --tertiary-bg: #5a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #ffad87;
+            --accent-color: #ff7f50; /* Coral */
+            --button-bg: #e54d2e;
+            --button-text: #ffffff;
+            --button-hover-bg: #c23b22;
+            --border-color: #ff7f50;
+            --card-shadow: 0 5px 15px rgba(255, 127, 80, 0.3);
+            --modal-bg: #3b0f0f;
+            --modal-border: #ff7f50;
+            --accent-color-rgb: 255, 127, 80;
+        }
+
+        /* Deep Ocean Theme */
+        .theme-deep-ocean {
+            --primary-bg: #0a1a2a;
+            --secondary-bg: #1a2a3a;
+            --tertiary-bg: #2a3a4a;
+            --text-primary: #e0f2f7;
+            --text-secondary: #a0d9ef;
+            --accent-color: #4fc3f7; /* Light Blue */
+            --button-bg: #2196f3;
+            --button-text: #ffffff;
+            --button-hover-bg: #1976d2;
+            --border-color: #4fc3f7;
+            --card-shadow: 0 5px 15px rgba(79, 195, 247, 0.3);
+            --modal-bg: #1a2a3a;
+            --modal-border: #4fc3f7;
+            --accent-color-rgb: 79, 195, 247;
+        }
+
+        /* Forest Green Theme */
+        .theme-forest-green {
+            --primary-bg: #0a1a0a;
+            --secondary-bg: #1a2a1a;
+            --tertiary-bg: #2a3a2a;
+            --text-primary: #e6ffe6;
+            --text-secondary: #a0e6a0;
+            --accent-color: #66bb6a; /* Green */
+            --button-bg: #4caf50;
+            --button-text: #ffffff;
+            --button-hover-bg: #388e3c;
+            --border-color: #66bb6a;
+            --card-shadow: 0 5px 15px rgba(102, 187, 106, 0.3);
+            --modal-bg: #1a2a1a;
+            --modal-border: #66bb6a;
+            --accent-color-rgb: 102, 187, 106;
+        }
+
+        /* Cyberpunk Glitch Theme */
+        .theme-cyberpunk-glitch {
+            --primary-bg: #0d001a;
+            --secondary-bg: #1a0033;
+            --tertiary-bg: #2a004d;
+            --text-primary: #00ffff; /* Cyan */
+            --text-secondary: #ff00ff; /* Magenta */
+            --accent-color: #00ffff;
+            --button-bg: #ff00ff;
+            --button-text: #0d001a;
+            --button-hover-bg: #e600e6;
+            --border-color: #00ffff;
+            --card-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+            --modal-bg: #1a0033;
+            --modal-border: #00ffff;
+            --accent-color-rgb: 0, 255, 255;
+        }
+
+        /* Arctic Frost Theme */
+        .theme-arctic-frost {
+            --primary-bg: #0f1c2c;
+            --secondary-bg: #1c2c3c;
+            --tertiary-bg: #2c3c4c;
+            --text-primary: #e0f7fa;
+            --text-secondary: #b2ebf2;
+            --accent-color: #80deea; /* Cyan Light */
+            --button-bg: #00bcd4;
+            --button-text: #ffffff;
+            --button-hover-bg: #00838f;
+            --border-color: #80deea;
+            --card-shadow: 0 5px 15px rgba(128, 222, 234, 0.3);
+            --modal-bg: #1c2c3c;
+            --modal-border: #80deea;
+            --accent-color-rgb: 128, 222, 234;
+        }
+
+        /* Solar Flare Theme */
+        .theme-solar-flare {
+            --primary-bg: #2a0a0a;
+            --secondary-bg: #3a1a0a;
+            --tertiary-bg: #4a2a0a;
+            --text-primary: #fff8e1;
+            --text-secondary: #ffe082;
+            --accent-color: #ffb300; /* Amber */
+            --button-bg: #ff8f00;
+            --button-text: #ffffff;
+            --button-hover-bg: #e65100;
+            --border-color: #ffb300;
+            --card-shadow: 0 5px 15px rgba(255, 179, 0, 0.3);
+            --modal-bg: #3a1a0a;
+            --modal-border: #ffb300;
+            --accent-color-rgb: 255, 179, 0;
+        }
+
+        /* Twilight Purple Theme */
+        .theme-twilight-purple {
+            --primary-bg: #1a0a2a;
+            --secondary-bg: #2a1a3a;
+            --tertiary-bg: #3a2a4a;
+            --text-primary: #f3e5f5;
+            --text-secondary: #ce93d8;
+            --accent-color: #ab47bc; /* Purple */
+            --button-bg: #8e24aa;
+            --button-text: #ffffff;
+            --button-hover-bg: #6a1b9a;
+            --border-color: #ab47bc;
+            --card-shadow: 0 5px 15px rgba(171, 71, 188, 0.3);
+            --modal-bg: #2a1a3a;
+            --modal-border: #ab47bc;
+            --accent-color-rgb: 171, 71, 188;
+        }
+
+        /* Desert Sunset Theme */
+        .theme-desert-sunset {
+            --primary-bg: #2a1a0a;
+            --secondary-bg: #3a2a0a;
+            --tertiary-bg: #4a3a0a;
+            --text-primary: #fffde7;
+            --text-secondary: #fff59d;
+            --accent-color: #ffc107; /* Amber */
+            --button-bg: #ff9800;
+            --button-text: #3a2a0a;
+            --button-hover-bg: #fb8c00;
+            --border-color: #ffc107;
+            --card-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+            --modal-bg: #3a2a0a;
+            --modal-border: #ffc107;
+            --accent-color-rgb: 255, 193, 7;
+        }
+
+        /* Vaporwave Dreams Theme */
+        .theme-vaporwave-dreams {
+            --primary-bg: #0a0a2a;
+            --secondary-bg: #1a0a3a;
+            --tertiary-bg: #2a0a4a;
+            --text-primary: #e0f7fa;
+            --text-secondary: #f06292;
+            --accent-color: #80cbc4; /* Teal */
+            --button-bg: #4dd0e1;
+            --button-text: #1a0a3a;
+            --button-hover-bg: #26c6da;
+            --border-color: #f06292;
+            --card-shadow: 0 5px 15px rgba(128, 203, 196, 0.4);
+            --modal-bg: #1a0a3a;
+            --modal-border: #f06292;
+            --accent-color-rgb: 128, 203, 196;
+        }
+
+        /* Emerald City Theme */
+        .theme-emerald-city {
+            --primary-bg: #0a2a1a;
+            --secondary-bg: #1a3a2a;
+            --tertiary-bg: #2a4a3a;
+            --text-primary: #e8f5e9;
+            --text-secondary: #a5d6a7;
+            --accent-color: #4caf50; /* Green */
+            --button-bg: #388e3c;
+            --button-text: #ffffff;
+            --button-hover-bg: #2e7d32;
+            --border-color: #4caf50;
+            --card-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+            --modal-bg: #1a3a2a;
+            --modal-border: #4caf50;
+            --accent-color-rgb: 76, 175, 80;
+        }
+
+        /* Ruby Red Theme */
+        .theme-ruby-red {
+            --primary-bg: #2a0a0a;
+            --secondary-bg: #3a0a0a;
+            --tertiary-bg: #4a0a0a;
+            --text-primary: #ffebee;
+            --text-secondary: #ef9a9a;
+            --accent-color: #ef5350; /* Red */
+            --button-bg: #d32f2f;
+            --button-text: #ffffff;
+            --button-hover-bg: #c62828;
+            --border-color: #ef5350;
+            --card-shadow: 0 5px 15px rgba(239, 83, 80, 0.3);
+            --modal-bg: #3a0a0a;
+            --modal-border: #ef5350;
+            --accent-color-rgb: 239, 83, 80;
+        }
+
+        /* Golden Hour Theme */
+        .theme-golden-hour {
+            --primary-bg: #fffde7;
+            --secondary-bg: #fff9c4;
+            --tertiary-bg: #fff59d;
+            --text-primary: #212121;
+            --text-secondary: #757575;
+            --accent-color: #ffeb3b; /* Yellow */
+            --button-bg: #ffc107;
+            --button-text: #212121;
+            --button-hover-bg: #ffb300;
+            --border-color: #ffeb3b;
+            --card-shadow: 0 5px 15px rgba(255, 235, 59, 0.3);
+            --modal-bg: #fff9c4;
+            --modal-border: #ffeb3b;
+            --accent-color-rgb: 255, 235, 59;
+        }
+
+        /* Midnight Blue Theme */
+        .theme-midnight-blue {
+            --primary-bg: #0a0a1a;
+            --secondary-bg: #1a1a2a;
+            --tertiary-bg: #2a2a3a;
+            --text-primary: #e3f2fd;
+            --text-secondary: #90caf9;
+            --accent-color: #42a5f5; /* Blue */
+            --button-bg: #1e88e5;
+            --button-text: #ffffff;
+            --button-hover-bg: #1565c0;
+            --border-color: #42a5f5;
+            --card-shadow: 0 5px 15px rgba(66, 165, 245, 0.3);
+            --modal-bg: #1a1a2a;
+            --modal-border: #42a5f5;
+            --accent-color-rgb: 66, 165, 245;
+        }
+
+        /* Grayscale Modern Theme */
+        .theme-grayscale-modern {
+            --primary-bg: #212121;
+            --secondary-bg: #424242;
+            --tertiary-bg: #616161;
+            --text-primary: #f5f5f5;
+            --text-secondary: #bdbdbd;
+            --accent-color: #9e9e9e; /* Gray */
+            --button-bg: #757575;
+            --button-text: #ffffff;
+            --button-hover-bg: #616161;
+            --border-color: #9e9e9e;
+            --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            --modal-bg: #424242;
+            --modal-border: #9e9e9e;
+            --accent-color-rgb: 158, 158, 158;
+        }
+
+        /* Candy Pop Theme */
+        .theme-candy-pop {
+            --primary-bg: #ffebee;
+            --secondary-bg: #f8bbd0;
+            --tertiary-bg: #f48fb1;
+            --text-primary: #424242;
+            --text-secondary: #880e4f;
+            --accent-color: #e91e63; /* Pink */
+            --button-bg: #ec407a;
+            --button-text: #ffffff;
+            --button-hover-bg: #d81b60;
+            --border-color: #e91e63;
+            --card-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+            --modal-bg: #f8bbd0;
+            --modal-border: #e91e63;
+            --accent-color-rgb: 233, 30, 99;
+        }
+
+        /* Steampunk Brass Theme */
+        .theme-steampunk-brass {
+            --primary-bg: #2e1a0a;
+            --secondary-bg: #4e2a0a;
+            --tertiary-bg: #6e3a0a;
+            --text-primary: #f5f5dc; /* Beige */
+            --text-secondary: #d4ac0d; /* Golden */
+            --accent-color: #b8860b; /* Dark Goldenrod */
+            --button-bg: #a0522d;
+            --button-text: #f5f5dc;
+            --button-hover-bg: #8b4513;
+            --border-color: #b8860b;
+            --card-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);
+            --modal-bg: #4e2a0a;
+            --modal-border: #b8860b;
+            --accent-color-rgb: 184, 134, 11;
+        }
+
+        /* Neon Glow Theme */
+        .theme-neon-glow {
+            --primary-bg: #000000;
+            --secondary-bg: #1a001a;
+            --tertiary-bg: #2a002a;
+            --text-primary: #00ff00; /* Green Neon */
+            --text-secondary: #ff00ff; /* Magenta Neon */
+            --accent-color: #00ffff; /* Cyan Neon */
+            --button-bg: #ff00ff;
+            --button-text: #000000;
+            --button-hover-bg: #e600e6;
+            --border-color: #00ff00;
+            --card-shadow: 0 5px 20px rgba(0, 255, 0, 0.6);
+            --modal-bg: #1a001a;
+            --modal-border: #00ff00;
+            --accent-color-rgb: 0, 255, 255;
+        }
+
+        /* Retro Arcade Theme */
+        .theme-retro-arcade {
+            --primary-bg: #0a0a2a;
+            --secondary-bg: #1a0a3a;
+            --tertiary-bg: #2a0a4a;
+            --text-primary: #ffee58; /* Yellow */
+            --text-secondary: #4dd0e1; /* Cyan */
+            --accent-color: #ff4081; /* Pink Accent */
+            --button-bg: #ff1744;
+            --button-text: #ffffff;
+            --button-hover-bg: #d50000;
+            --border-color: #ffee58;
+            --card-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
+            --modal-bg: #1a0a3a;
+            --modal-border: #ffee58;
+            --accent-color-rgb: 255, 64, 129;
+        }
+
+        /* Space Odyssey Theme */
+        .theme-space-odyssey {
+            --primary-bg: #00001a;
+            --secondary-bg: #0a0a2a;
+            --tertiary-bg: #1a1a3a;
+            --text-primary: #e0f2f7;
+            --text-secondary: #b3e5fc;
+            --accent-color: #2196f3; /* Blue */
+            --button-bg: #1976d2;
+            --button-text: #ffffff;
+            --button-hover-bg: #1565c0;
+            --border-color: #2196f3;
+            --card-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+            --modal-bg: #0a0a2a;
+            --modal-border: #2196f3;
+            --accent-color-rgb: 33, 150, 243;
+        }
+
+        /* Classic Black & White Theme */
+        .theme-classic-bw {
+            --primary-bg: #000000;
+            --secondary-bg: #1a1a1a;
+            --tertiary-bg: #333333;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent-color: #999999;
+            --button-bg: #555555;
+            --button-text: #ffffff;
+            --button-hover-bg: #444444;
+            --border-color: #777777;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            --modal-bg: #1a1a1a;
+            --modal-border: #777777;
+            --accent-color-rgb: 153, 153, 153;
+        }
+
+        /* Ocean Sunset Theme */
+        .theme-ocean-sunset {
+            --primary-bg: #0a1a2a;
+            --secondary-bg: #1a2a3a;
+            --tertiary-bg: #2a3a4a;
+            --text-primary: #ffe0b2;
+            --text-secondary: #ffcc80;
+            --accent-color: #ff9800; /* Orange */
+            --button-bg: #ff5722;
+            --button-text: #ffffff;
+            --button-hover-bg: #e64a19;
+            --border-color: #ff9800;
+            --card-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+            --modal-bg: #1a2a3a;
+            --modal-border: #ff9800;
+            --accent-color-rgb: 255, 87, 34;
+        }
+
+        /* Sakura Bloom Theme */
+        .theme-sakura-bloom {
+            --primary-bg: #fff0f5;
+            --secondary-bg: #fce4ec;
+            --tertiary-bg: #f8bbd0;
+            --text-primary: #4a148c;
+            --text-secondary: #880e4f;
+            --accent-color: #e91e63; /* Pink */
+            --button-bg: #f06292;
+            --button-text: #ffffff;
+            --button-hover-bg: #ec407a;
+            --border-color: #e91e63;
+            --card-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+            --modal-bg: #fce4ec;
+            --modal-border: #e91e63;
+            --accent-color-rgb: 233, 30, 99;
+        }
+
+        /* Earthy Tones Theme */
+        .theme-earthy-tones {
+            --primary-bg: #2e2e2e;
+            --secondary-bg: #3e3e3e;
+            --tertiary-bg: #4e4e4e;
+            --text-primary: #f5f5dc;
+            --text-secondary: #d2b48c;
+            --accent-color: #8b4513; /* SaddleBrown */
+            --button-bg: #a0522d;
+            --button-text: #f5f5dc;
+            --button-hover-bg: #8b4513;
+            --border-color: #8b4513;
+            --card-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+            --modal-bg: #3e3e3e;
+            --modal-border: #8b4513;
+            --accent-color-rgb: 139, 69, 19;
+        }
+
         /* Custom styles to ensure Inter font is applied and for smooth transitions */
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
         }
-        /* Dark mode specific styles */
-        .dark body {
-            background-color: #1a202c; /* Equivalent to bg-gray-900 */
-            color: #e2e8f0; /* Equivalent to text-gray-200 */
-        }
-        .dark .bg-gray-800 { background-color: #2d3748; } /* Darker gray for elements */
-        .dark .bg-gray-700 { background-color: #4a5568; } /* Even darker gray for inputs */
-        .dark .bg-gray-900 { background-color: #1a202c; } /* Main background */
-        .dark .text-gray-100 { color: #f7fafc; }
-        .dark .text-gray-400 { color: #a0aec0; }
-        .dark .border-gray-700 { border-color: #4a5568; }
-        .dark .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-        .dark .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
 
-        /* Light mode specific styles */
-        html:not(.dark) body {
-            background-color: #f7fafc; /* Equivalent to bg-gray-100 */
-            color: #2d3748; /* Equivalent to text-gray-800 */
+        /* Apply theme variables to Tailwind classes */
+        /* These are fallback/initial styles, overridden by JS for active theme */
+        .bg-gray-900 { background-color: var(--primary-bg); }
+        .bg-gray-800 { background-color: var(--secondary-bg); }
+        .bg-gray-700 { background-color: var(--tertiary-bg); }
+        .text-gray-100 { color: var(--text-primary); }
+        .text-gray-300 { color: var(--text-secondary); }
+        .text-gray-400 { color: var(--text-secondary); }
+        .border-gray-700 { border-color: var(--border-color); }
+
+        /* Specific element styling using variables */
+        .nav-link, .icon-link {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
-        html:not(.dark) .bg-gray-800 { background-color: #edf2f7; } /* Lighter gray for elements */
-        html:not(.dark) .bg-gray-700 { background-color: #e2e8f0; } /* Even lighter gray for inputs */
-        html:not(.dark) .bg-gray-900 { background-color: #f7fafc; } /* Main background */
-        html:not(.dark) .text-gray-100 { color: #1a202c; }
-        html:not(.dark) .text-gray-400 { color: #718096; }
-        html:not(.dark) .border-gray-700 { border-color: #e2e8f0; }
+        .nav-link:hover, .icon-link:hover {
+            color: var(--text-primary);
+        }
+
+        .search-input {
+            background-color: var(--tertiary-bg);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+        .search-icon {
+            color: var(--text-secondary);
+        }
+
+        .hero-title {
+            color: var(--text-primary);
+        }
+        .hero-subtitle {
+            color: var(--text-secondary);
+        }
+        .accent-text {
+            color: var(--accent-color);
+        }
+
+        .cta-button {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: var(--button-hover-bg);
+            transform: scale(1.05);
+        }
+
+        .card {
+            background-color: var(--secondary-bg);
+            border-color: var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow);
+        }
+        .card-icon-bg {
+            background-color: var(--accent-color); /* Use accent for card icons */
+        }
+        .card-title {
+            color: var(--text-primary);
+        }
+        .card-description {
+            color: var(--text-secondary);
+        }
+
+        /* Central Icon Animation */
+        @keyframes pulse-slow {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(var(--accent-color-rgb), 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 30px rgba(var(--accent-color-rgb), 1);
+            }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 4s infinite ease-in-out;
+        }
+
+        /* Theme Editor Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: var(--modal-bg);
+            color: var(--text-primary);
+            border: 2px solid var(--modal-border);
+            border-radius: 1rem; /* rounded-2xl */
+            padding: 2rem; /* p-8 */
+            max-width: 96rem; /* max-w-4xl */
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .modal-overlay.open .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .theme-card {
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+            background-color: var(--secondary-bg); /* Use current theme's secondary bg for preview cards */
+        }
+        .theme-card.active {
+            border-color: var(--accent-color); /* Highlight active theme */
+        }
+        .theme-card:hover {
+            transform: scale(1.03);
+            cursor: pointer;
+        }
+        .theme-preview-box {
+            height: 6rem; /* h-24 */
+            border-radius: 0.5rem; /* rounded-lg */
+            margin-bottom: 0.75rem; /* mb-3 */
+            border: 1px solid var(--border-color); /* Use current theme's border for preview */
+        }
+        .theme-preview-box.active-border {
+             border-color: var(--accent-color);
+        }
+
+        /* Dynamic background for actual theme preview boxes */
+        .preview-fire-inferno { background: linear-gradient(to bottom right, #3b0f0f, #e54d2e, #ff7f50); }
+        .preview-deep-ocean { background: linear-gradient(to bottom right, #1a2a3a, #2196f3, #4fc3f7); }
+        .preview-forest-green { background: linear-gradient(to bottom right, #1a2a1a, #4caf50, #66bb6a); }
+        .preview-cyberpunk-glitch { background: linear-gradient(to bottom right, #1a0033, #ff00ff, #00ffff); }
+        .preview-arctic-frost { background: linear-gradient(to bottom right, #1c2c3c, #00bcd4, #80deea); }
+        .preview-solar-flare { background: linear-gradient(to bottom right, #3a1a0a, #ff8f00, #ffb300); }
+        .preview-twilight-purple { background: linear-gradient(to bottom right, #2a1a3a, #8e24aa, #ab47bc); }
+        .preview-desert-sunset { background: linear-gradient(to bottom right, #3a2a0a, #ff9800, #ffc107); }
+        .preview-vaporwave-dreams { background: linear-gradient(to bottom right, #1a0a3a, #4dd0e1, #f06292); }
+        .preview-emerald-city { background: linear-gradient(to bottom right, #1a3a2a, #388e3c, #4caf50); }
+        .preview-ruby-red { background: linear-gradient(to bottom right, #3a0a0a, #d32f2f, #ef5350); }
+        .preview-golden-hour { background: linear-gradient(to bottom right, #fff9c4, #ffc107, #ffeb3b); }
+        .preview-midnight-blue { background: linear-gradient(to bottom right, #1a1a2a, #1e88e5, #42a5f5); }
+        .preview-grayscale-modern { background: linear-gradient(to bottom right, #424242, #757575, #9e9e9e); }
+        .preview-candy-pop { background: linear-gradient(to bottom right, #f8bbd0, #ec407a, #e91e63); }
+        .preview-steampunk-brass { background: linear-gradient(to bottom right, #4e2a0a, #a0522d, #b8860b); }
+        .preview-neon-glow { background: linear-gradient(to bottom right, #1a001a, #ff00ff, #00ff00); }
+        .preview-retro-arcade { background: linear-gradient(to bottom right, #1a0a3a, #ff1744, #ffee58); }
+        .preview-space-odyssey { background: linear-gradient(to bottom right, #0a0a2a, #1976d2, #2196f3); }
+        .preview-classic-bw { background: linear-gradient(to bottom right, #1a1a1a, #555555, #999999); }
+        .preview-ocean-sunset { background: linear-gradient(to bottom right, #1a2a3a, #ff5722, #ff9800); }
+        .preview-sakura-bloom { background: linear-gradient(to bottom right, #fce4ec, #f06292, #e91e63); }
+        .preview-earthy-tones { background: linear-gradient(to bottom right, #3e3e3e, #a0522d, #8b4513); }
+
+
+        /* Background animation for body */
+        @keyframes subtle-gradient-shift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        body.animated-background {
+            background-size: 400% 400%;
+            animation: subtle-gradient-shift 20s ease infinite;
+        }
+
+        /* Specific background for the animated body (can be overridden by themes) */
+        body.theme-fire-inferno.animated-background {
+            background: linear-gradient(270deg, #3b0f0f, #1a0a0a, #5a1a1a);
+            background-size: 400% 400%;
+            animation: subtle-gradient-shift 20s ease infinite;
+        }
+        body.theme-deep-ocean.animated-background {
+            background: linear-gradient(270deg, #1a2a3a, #0a1a2a, #2a3a4a);
+            background-size: 400% 400%;
+            animation: subtle-gradient-shift 20s ease infinite;
+        }
+        body.theme-cyberpunk-glitch.animated-background {
+            background: linear-gradient(270deg, #1a0033, #0d001a, #2a004d);
+            background-size: 400% 400%;
+            animation: subtle-gradient-shift 20s ease infinite;
+        }
+        /* Add more animated background definitions for other themes if desired,
+           otherwise they will use their static primary-bg */
+
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col animated-background">
 
     <!-- Header Section -->
-    <nav class="bg-gray-800 p-4 flex items-center justify-between shadow-lg rounded-b-lg">
+    <nav class="bg-gray-800 p-4 flex items-center justify-between shadow-lg rounded-b-lg"
+         style="background-color: var(--secondary-bg);">
         <!-- Left side: Logo/Title and Search -->
         <div class="flex items-center space-x-4">
-            <a href="#" class="text-2xl font-bold text-blue-400 hover:text-blue-300 transition-colors">
+            <a href="#" class="text-2xl font-bold accent-text hover:opacity-80 transition-colors">
                 Sinny's Palace
             </a>
             <div class="relative">
-                <input type="text" placeholder="Search Palace" class="bg-gray-700 text-gray-300 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-32 sm:w-48">
-                <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <input type="text" placeholder="Search Palace" class="search-input rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-32 sm:w-48"
+                       style="background-color: var(--tertiary-bg); color: var(--text-primary); border-color: var(--border-color);">
+                <svg class="w-5 h-5 search-icon absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                     style="color: var(--text-secondary);">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
             </div>
@@ -60,25 +676,26 @@
 
         <!-- Right side: Navigation and Icons -->
         <div class="flex items-center space-x-4">
-            <a href="#" class="text-gray-400 hover:text-gray-100 transition-colors hidden md:block">Glossary</a>
-            <a href="#" class="text-gray-400 hover:text-gray-100 transition-colors hidden md:block">Backups</a>
-            <a href="#" class="text-gray-400 hover:text-gray-100 transition-colors hidden md:block">Ecosystem</a>
+            <a href="#" class="nav-link hidden md:block" style="color: var(--text-secondary);">Glossary</a>
+            <a href="#" class="nav-link hidden md:block" style="color: var(--text-secondary);">Backups</a>
+            <a href="#" class="nav-link hidden md:block" style="color: var(--text-secondary);">Ecosystem</a>
             
             <!-- GitHub Icon -->
-            <a href="#" class="text-gray-400 hover:text-gray-100 transition-colors">
+            <a href="#" class="icon-link" style="color: var(--text-secondary);">
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.679-.217.679-.481 0-.237-.008-.865-.013-1.702-2.782.602-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.46-1.11-1.46-.908-.619.069-.605.069-.605 1.007.07 1.532 1.03 1.532 1.03.892 1.529 2.341 1.089 2.91.833.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.93 0-1.091.39-1.984 1.029-2.682-.103-.253-.446-1.272.098-2.65 0 0 .84-.268 2.75 1.025A9.428 9.428 0 0112 6.844c.85.004 1.7.11 2.504.324 1.909-1.293 2.747-1.025 2.747-1.025.546 1.379.202 2.398.099 2.651.64.698 1.028 1.591 1.028 2.682 0 3.826-2.338 4.673-4.564 4.925.359.309.678.917.678 1.846 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.685.479C21.133 20.197 24 16.442 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd" />
                 </svg>
             </a>
             <!-- Discord Icon -->
-            <a href="#" class="text-gray-400 hover:text-gray-100 transition-colors">
+            <a href="#" class="icon-link" style="color: var(--text-secondary);">
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M20.25 0H3.75C1.679 0 0 1.791 0 4v16c0 2.209 1.679 4 3.75 4h16.5c2.071 0 3.75-1.791 3.75-4V4c0-2.209-1.679-4-3.75-4zm-3.34 16.66c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-.9-.9c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-1.8-1.8c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-2.7-2.7c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-3.6-3.6c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-.9-.9c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm1.8-1.8c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm2.7-2.7c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm3.6-3.6c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54z"/>
                 </svg>
             </a>
             <!-- Theme Toggle Button -->
-            <button id="themeToggle" class="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <button id="themeToggle" class="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    style="background-color: var(--tertiary-bg); color: var(--text-secondary);">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12H2m15.325-4.275l-.707-.707M6.372 17.628l-.707.707M17.628 6.372l.707-.707M6.372 6.372l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z"></path>
                 </svg>
             </button>
@@ -87,32 +704,39 @@
 
     <!-- Hero Section -->
     <header class="flex-grow flex flex-col items-center justify-center text-center py-16 px-4">
-        <p class="text-blue-400 text-sm mb-2">July 2025 Updates ✨</p>
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight text-gray-100 mb-6">
+        <p class="accent-text text-sm mb-2" style="color: var(--accent-color);">July 2025 Updates ✨</p>
+        <h1 class="hero-title text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight mb-6"
+            style="color: var(--text-primary);">
             Sinny's Palace
         </h1>
-        <p class="text-lg sm:text-xl text-gray-300 mb-10 max-w-2xl">
-            The largest collection of free stuff on the internet!
+        <p class="hero-subtitle text-lg sm:text-xl mb-10 max-w-2xl"
+           style="color: var(--text-secondary);">
+            Your all-in-one utility suite. Explore powerful tools for everyday tasks!
         </p>
 
         <!-- Call to Action Buttons -->
         <div class="flex flex-wrap justify-center gap-4 mb-16">
-            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
-                See Beginners Guide
+            <button class="cta-button font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                    style="background-color: var(--button-bg); color: var(--button-text);">
+                Explore Tools
             </button>
-            <button class="bg-gray-700 hover:bg-gray-600 text-gray-100 font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
-                Posts
+            <button class="cta-button font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                    style="background-color: var(--tertiary-bg); color: var(--text-primary); --button-hover-bg: var(--secondary-bg);">
+                About
             </button>
-            <button class="bg-gray-700 hover:bg-gray-600 text-gray-100 font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
-                Contribute
+            <button class="cta-button font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                    style="background-color: var(--tertiary-bg); color: var(--text-primary); --button-hover-bg: var(--secondary-bg);">
+                Support
             </button>
-            <button class="bg-gray-700 hover:bg-gray-600 text-gray-100 font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
+            <button class="cta-button font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                    style="background-color: var(--tertiary-bg); color: var(--text-primary); --button-hover-bg: var(--secondary-bg);">
                 Discord
             </button>
         </div>
 
         <!-- Large Central Icon (Play Button inspired) -->
-        <div class="relative w-40 h-40 sm:w-48 sm:h-48 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 shadow-2xl animate-pulse-slow">
+        <div class="relative w-40 h-40 sm:w-48 sm:h-48 flex items-center justify-center rounded-full shadow-2xl animate-pulse-slow"
+             style="background: linear-gradient(to bottom right, var(--accent-color), var(--button-bg));">
             <svg class="w-24 h-24 sm:w-28 sm:h-28 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 5v14l11-7z" />
             </svg>
@@ -121,153 +745,263 @@
 
     <!-- Grid Section -->
     <main class="container mx-auto px-4 py-12">
-        <p class="text-center text-gray-400 text-lg mb-8">Or browse these pages ✨</p>
+        <p class="text-center text-gray-400 text-lg mb-8" style="color: var(--text-secondary);">Or browse these pages ✨</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Card 1: Adblocking / Privacy - UPDATED LINK -->
-            <a href="adblocking-privacy-page.html" class="block bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
+            <!-- Card 1: Privacy & Security -->
+            <a href="#" class="card block p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
+               style="background-color: var(--secondary-bg); border-color: var(--border-color);">
                 <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full bg-purple-600 text-white mr-4">
+                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99l4.58-4.59L12 5.82 7.41 10.41 12 15z"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-100">Adblocking / Privacy</h3>
+                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Privacy & Security</h3>
                 </div>
-                <p class="text-gray-400">Learn how to block ads, trackers and other nasty things.</p>
+                <p class="card-description" style="color: var(--text-secondary);">Tools to help protect your digital privacy and enhance security.</p>
             </a>
 
-            <!-- Card 2: Artificial Intelligence -->
-            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
+            <!-- Card 2: AI Tools -->
+            <div class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
+                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
                 <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full bg-blue-600 text-white mr-4">
+                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-100">Artificial Intelligence</h3>
+                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">AI Tools</h3>
                 </div>
-                <p class="text-gray-400">Explore the world of AI and machine learning.</p>
+                <p class="card-description" style="color: var(--text-secondary);">Explore smart utilities powered by artificial intelligence.</p>
             </div>
 
-            <!-- Card 3: Streaming -->
-            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
+            <!-- Card 3: Text Utilities -->
+            <div class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
+                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
                 <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full bg-green-600 text-white mr-4">
+                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zm-8-6l-6 4V8l6 4zm6 0l-6 4V8l6 4z"/>
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12H6v-2h6v2zm4-3H6V9h10v2zm0-3H6V6h10v2z"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-100">Streaming</h3>
+                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Text Utilities</h3>
                 </div>
-                <p class="text-gray-400">Stream, download, torrent and binge all your favourite movies and shows!</p>
+                <p class="card-description" style="color: var(--text-secondary);">Perform various operations on text, from formatting to analysis.</p>
             </div>
 
-            <!-- Card 4: Listening -->
-            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
+            <!-- Card 4: Unit Converters -->
+            <div class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
+                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
                 <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full bg-red-600 text-white mr-4">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 3v18c-4.97 0-9-4.03-9-9s4.03-9 9-9zm0 2c-3.87 0-7 3.13-7 7s3.13 7 7 7V5z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-100">Listening</h3>
-                </div>
-                <p class="text-gray-400">Stream, download and torrent songs, podcasts and more!</p>
-            </div>
-
-            <!-- Card 5: Gaming -->
-            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
-                <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full bg-yellow-600 text-white mr-4">
+                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-100">Gaming</h3>
+                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Unit Converters</h3>
                 </div>
-                <p class="text-gray-400">Download and play all your favourite games or emulate some old but gold ones!</p>
+                <p class="card-description" style="color: var(--text-secondary);">Quickly convert between different units of measurement.</p>
             </div>
 
-            <!-- Card 6: Reading -->
-            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
+            <!-- Card 5: Image Tools -->
+            <div class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
+                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
                 <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full bg-indigo-600 text-white mr-4">
+                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 16H6V4h13v14zm-7-4l-4 4h8l-4-4z"/>
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-5-7z"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-100">Reading</h3>
+                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Image Tools</h3>
                 </div>
-                <p class="text-gray-400">Whether you're a bookworm, otaku or comic book fan, you'll be able to find your favourite pieces of literature here for free!</p>
+                <p class="card-description" style="color: var(--text-secondary);">Resize, optimize, and manipulate your images with ease.</p>
             </div>
 
-            <!-- Card 7: Downloading -->
-            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
+            <!-- Card 6: Account Generator -->
+            <div class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
+                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
                 <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full bg-pink-600 text-white mr-4">
+                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-100">Downloading</h3>
+                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Account Generator</h3>
                 </div>
-                <p class="text-gray-400">Download all your favourite software, movies, TV shows, music, games and more!</p>
+                <p class="card-description" style="color: var(--text-secondary);">Generate unique usernames and passwords, including OG names!</p>
             </div>
 
-            <!-- Card 8: Torrenting -->
-            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
+            <!-- Card 7: System Utilities -->
+            <div class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
+                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
                 <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full bg-teal-600 text-white mr-4">
+                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                            <path d="M19 11H5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2zm0 8H5v-6h14v6zM7 15h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-100">Torrenting</h3>
+                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">System Utilities</h3>
                 </div>
-                <p class="text-gray-400">Download your favourite media using the BitTorrent protocol.</p>
+                <p class="card-description" style="color: var(--text-secondary);">Handy tools for managing your system and daily tasks.</p>
             </div>
 
-            <!-- Card 9: Placeholder/New Category -->
-            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-700 flex items-center justify-center text-gray-500">
+            <!-- Card 8: Development Tools -->
+            <div class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
+                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.6 16.6L19.2 12 14.6 7.4 16 6l6 6-6 6-1.4-1.4zm-5.2 0L4.8 12 9.4 7.4 8 6l-6 6 6 6 1.4-1.4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Development Tools</h3>
+                </div>
+                <p class="card-description" style="color: var(--text-secondary);">Essential utilities for developers and power users.</p>
+            </div>
+
+            <!-- Card 9: New Tool Coming Soon! -->
+            <div class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border flex items-center justify-center text-gray-500"
+                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
                 <div class="text-center">
-                    <svg class="w-12 h-12 mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-12 h-12 mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-secondary);">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
                     </svg>
-                    <p class="text-lg font-semibold">New Category Soon!</p>
+                    <p class="text-lg font-semibold" style="color: var(--text-secondary);">New Tool Coming Soon!</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <script>
-        // JavaScript for Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const htmlElement = document.documentElement;
+    <!-- Theme Editor Modal -->
+    <div id="themeEditorModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="text-3xl font-bold mb-6 text-center accent-text" style="color: var(--accent-color);">
+                Choose Your Theme
+            </h2>
+            <div id="themeGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Theme cards will be injected here by JavaScript -->
+            </div>
+            <div class="mt-8 text-center">
+                <button id="closeThemeEditorBtn" class="cta-button font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                        style="background-color: var(--button-bg); color: var(--button-text);">
+                    Close Theme Editor
+                </button>
+            </div>
+        </div>
+    </div>
 
-        // Function to set theme based on localStorage or default to dark
-        function setThemeFromLocalStorage() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light') {
-                htmlElement.classList.remove('dark');
-            } else {
-                htmlElement.classList.add('dark');
+    <script>
+        // Define the themes in JavaScript for easy iteration
+        const themes = [
+            { name: "Fire Inferno", className: "theme-fire-inferno", previewGradient: "linear-gradient(to bottom right, #3b0f0f, #e54d2e, #ff7f50)", accentRgb: "255, 127, 80" },
+            { name: "Deep Ocean", className: "theme-deep-ocean", previewGradient: "linear-gradient(to bottom right, #1a2a3a, #2196f3, #4fc3f7)", accentRgb: "79, 195, 247" },
+            { name: "Forest Green", className: "theme-forest-green", previewGradient: "linear-gradient(to bottom right, #1a2a1a, #4caf50, #66bb6a)", accentRgb: "102, 187, 106" },
+            { name: "Cyberpunk Glitch", className: "theme-cyberpunk-glitch", previewGradient: "linear-gradient(to bottom right, #1a0033, #ff00ff, #00ffff)", accentRgb: "0, 255, 255" },
+            { name: "Arctic Frost", className: "theme-arctic-frost", previewGradient: "linear-gradient(to bottom right, #1c2c3c, #00bcd4, #80deea)", accentRgb: "128, 222, 234" },
+            { name: "Solar Flare", className: "theme-solar-flare", previewGradient: "linear-gradient(to bottom right, #3a1a0a, #ff8f00, #ffb300)", accentRgb: "255, 179, 0" },
+            { name: "Twilight Purple", className: "theme-twilight-purple", previewGradient: "linear-gradient(to bottom right, #2a1a3a, #8e24aa, #ab47bc)", accentRgb: "171, 71, 188" },
+            { name: "Desert Sunset", className: "theme-desert-sunset", previewGradient: "linear-gradient(to bottom right, #3a2a0a, #ff9800, #ffc107)", accentRgb: "255, 193, 7" },
+            { name: "Vaporwave Dreams", className: "theme-vaporwave-dreams", previewGradient: "linear-gradient(to bottom right, #1a0a3a, #4dd0e1, #f06292)", accentRgb: "128, 203, 196" },
+            { name: "Emerald City", className: "theme-emerald-city", previewGradient: "linear-gradient(to bottom right, #1a3a2a, #388e3c, #4caf50)", accentRgb: "76, 175, 80" },
+            { name: "Ruby Red", className: "theme-ruby-red", previewGradient: "linear-gradient(to bottom right, #3a0a0a, #d32f2f, #ef5350)", accentRgb: "239, 83, 80" },
+            { name: "Golden Hour", className: "theme-golden-hour", previewGradient: "linear-gradient(to bottom right, #fff9c4, #ffc107, #ffeb3b)", accentRgb: "255, 235, 59" },
+            { name: "Midnight Blue", className: "theme-midnight-blue", previewGradient: "linear-gradient(to bottom right, #1a1a2a, #1e88e5, #42a5f5)", accentRgb: "66, 165, 245" },
+            { name: "Grayscale Modern", className: "theme-grayscale-modern", previewGradient: "linear-gradient(to bottom right, #424242, #757575, #9e9e9e)", accentRgb: "158, 158, 158" },
+            { name: "Candy Pop", className: "theme-candy-pop", previewGradient: "linear-gradient(to bottom right, #f8bbd0, #ec407a, #e91e63)", accentRgb: "233, 30, 99" },
+            { name: "Steampunk Brass", className: "theme-steampunk-brass", previewGradient: "linear-gradient(to bottom right, #4e2a0a, #a0522d, #b8860b)", accentRgb: "184, 134, 11" },
+            { name: "Neon Glow", className: "theme-neon-glow", previewGradient: "linear-gradient(to bottom right, #1a001a, #ff00ff, #00ff00)", accentRgb: "0, 255, 255" },
+            { name: "Retro Arcade", className: "theme-retro-arcade", previewGradient: "linear-gradient(to bottom right, #1a0a3a, #ff1744, #ffee58)", accentRgb: "255, 64, 129" },
+            { name: "Space Odyssey", className: "theme-space-odyssey", previewGradient: "linear-gradient(to bottom right, #0a0a2a, #1976d2, #2196f3)", accentRgb: "33, 150, 243" },
+            { name: "Classic Black & White", className: "theme-classic-bw", previewGradient: "linear-gradient(to bottom right, #1a1a1a, #555555, #999999)", accentRgb: "153, 153, 153" },
+            { name: "Ocean Sunset", className: "theme-ocean-sunset", previewGradient: "linear-gradient(to bottom right, #1a2a3a, #ff5722, #ff9800)", accentRgb: "255, 87, 34" },
+            { name: "Sakura Bloom", className: "theme-sakura-bloom", previewGradient: "linear-gradient(to bottom right, #fce4ec, #f06292, #e91e63)", accentRgb: "233, 30, 99" },
+            { name: "Earthy Tones", className: "theme-earthy-tones", previewGradient: "linear-gradient(to bottom right, #3e3e3e, #a0522d, #8b4513)", accentRgb: "139, 69, 19" },
+        ];
+
+        // Function to apply a theme
+        function applyTheme(themeName) {
+            const body = document.body;
+            // Remove all existing theme classes
+            themes.forEach(t => body.classList.remove(t.className));
+            // Add the new theme class
+            const selectedTheme = themes.find(t => t.name === themeName);
+            if (selectedTheme) {
+                body.classList.add(selectedTheme.className);
+                localStorage.setItem('currentTheme', themeName);
+
+                // Update the accent-color-rgb for the pulse animation
+                document.documentElement.style.setProperty('--accent-color-rgb', selectedTheme.accentRgb);
             }
         }
 
-        // Set theme on page load
-        setThemeFromLocalStorage();
-
-        // Event listener for theme toggle button
-        themeToggle.addEventListener('click', () => {
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
+        // Function to initialize theme on load
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('currentTheme');
+            if (savedTheme) {
+                applyTheme(savedTheme);
             } else {
-                htmlElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
+                // Set default theme (e.g., Fire Inferno)
+                applyTheme(themes[0].name);
+            }
+            // Ensure the animated background class is always present
+            document.body.classList.add('animated-background');
+        }
+
+        // Modal elements
+        const themeEditorModal = document.getElementById('themeEditorModal');
+        const themeGrid = document.getElementById('themeGrid');
+        const closeThemeEditorBtn = document.getElementById('closeThemeEditorBtn');
+        const openThemeEditorBtn = document.getElementById('themeToggle'); // Re-purpose the existing theme toggle button
+
+        // Open modal
+        openThemeEditorBtn.addEventListener('click', () => {
+            themeEditorModal.classList.add('open');
+            renderThemeCards(); // Re-render cards to update active state
+        });
+
+        // Close modal
+        closeThemeEditorBtn.addEventListener('click', () => {
+            themeEditorModal.classList.remove('open');
+        });
+
+        // Close modal when clicking outside content
+        themeEditorModal.addEventListener('click', (e) => {
+            if (e.target === themeEditorModal) {
+                themeEditorModal.classList.remove('open');
             }
         });
+
+        // Render theme cards in the modal
+        function renderThemeCards() {
+            themeGrid.innerHTML = ''; // Clear previous cards
+            const currentActiveTheme = localStorage.getItem('currentTheme') || themes[0].name;
+
+            themes.forEach(theme => {
+                const themeCard = document.createElement('div');
+                themeCard.className = `theme-card rounded-xl p-4 cursor-pointer transition-all duration-200 hover:scale-103 transform flex flex-col items-center justify-center text-center`;
+                if (theme.name === currentActiveTheme) {
+                    themeCard.classList.add('active');
+                }
+                // Apply the current theme's secondary background to the theme card itself
+                themeCard.style.backgroundColor = 'var(--secondary-bg)';
+
+
+                themeCard.innerHTML = `
+                    <div class="w-full h-24 rounded-lg mb-3 theme-preview-box ${theme.name === currentActiveTheme ? 'active-border' : ''}" style="background: ${theme.previewGradient}; border-color: var(--border-color);"></div>
+                    <h3 class="text-xl font-semibold" style="color: var(--text-primary);">${theme.name}</h3>
+                    <p class="text-sm" style="color: var(--text-secondary);">${theme.name === currentActiveTheme ? 'Active' : 'Click to activate'}</p>
+                `;
+                themeCard.addEventListener('click', () => {
+                    applyTheme(theme.name);
+                    renderThemeCards(); // Re-render to update active state
+                });
+                themeGrid.appendChild(themeCard);
+            });
+        }
+
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', initializeTheme);
     </script>
 </body>
 </html>
