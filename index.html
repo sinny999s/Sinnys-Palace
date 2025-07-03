@@ -503,7 +503,7 @@
         .card {
             background-color: var(--secondary-bg);
             border-color: var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
         }
         .card:hover {
             transform: translateY(-4px);
@@ -532,6 +532,32 @@
         }
         .animate-pulse-slow {
             animation: pulse-slow 4s infinite ease-in-out;
+        }
+
+        /* Search Results Popup */
+        #searchResults {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 0.5rem 0.5rem;
+            z-index: 50;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        #searchResults a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            transition: background-color 0.2s ease;
+        }
+        #searchResults a:hover {
+            background-color: var(--tertiary-bg);
+            color: var(--accent-color);
         }
 
         /* Theme Editor Modal Styles */
@@ -651,19 +677,6 @@
         /* Add more animated background definitions for other themes if desired,
            otherwise they will use their static primary-bg */
 
-        /* About Page Specific Styles */
-        .about-container {
-            background-color: var(--secondary-bg);
-            border-color: var(--border-color);
-            color: var(--text-primary);
-        }
-        .about-section-title {
-            color: var(--accent-color);
-        }
-        .about-text {
-            color: var(--text-secondary);
-        }
-
     </style>
 </head>
 <body class="min-h-screen flex flex-col animated-background">
@@ -676,21 +689,20 @@
             <a href="index.html" class="text-2xl font-bold accent-text hover:opacity-80 transition-colors">
                 Sinny's Palace
             </a>
-            <div class="relative">
-                <input type="text" placeholder="Search Palace" class="search-input rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-32 sm:w-48"
-                       style="background-color: var(--tertiary-bg); color: var(--text-primary); border-color: var(--border-color);">
+            <div class="relative" id="search-container">
+                <input type="text" id="searchInput" placeholder="Search Palace" class="search-input rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-32 sm:w-48"
+                       style="background-color: var(--tertiary-bg); color: var(--text-primary); border-color: var(--border-color);" autocomplete="off">
                 <svg class="w-5 h-5 search-icon absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                      style="color: var(--text-secondary);">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
+                <div id="searchResults" class="hidden"></div>
             </div>
         </div>
 
         <!-- Right side: Navigation and Icons -->
         <div class="flex items-center space-x-4">
             <a href="glossary.html" class="nav-link hidden md:block" style="color: var(--text-secondary);">Glossary</a>
-            <a href="backups.html" class="nav-link hidden md:block" style="color: var(--text-secondary);">Backups</a>
-            <a href="ecosystem.html" class="nav-link hidden md:block" style="color: var(--text-secondary);">Ecosystem</a>
             
             <!-- GitHub Icon -->
             <a href="https://github.com/sinny999s" target="_blank" class="icon-link" style="color: var(--text-secondary);">
@@ -751,10 +763,9 @@
             <h2 class="text-3xl font-bold text-center mb-10 accent-text" style="color: var(--accent-color);">
                 Featured Tools & Games
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Card 1: Piracy Tools -->
-                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
-                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300" data-name="Piracy" data-url="piracy.html">
                     <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-slow"
                          style="background-color: var(--accent-color);">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -772,8 +783,7 @@
                 </div>
 
                 <!-- Card 2: Text Utilities -->
-                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
-                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300" data-name="Text Utilities" data-url="base64-tools.html">
                     <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-slow"
                          style="background-color: var(--accent-color);">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -791,8 +801,7 @@
                 </div>
 
                 <!-- Card 3: Developer Tools -->
-                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
-                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300" data-name="Developer Tools" data-url="devtools.html">
                     <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-slow"
                          style="background-color: var(--accent-color);">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -810,8 +819,7 @@
                 </div>
 
                 <!-- Card 4: Image Tools -->
-                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
-                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300" data-name="Image Tools" data-url="image-tools.html">
                     <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-slow"
                          style="background-color: var(--accent-color);">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -829,8 +837,7 @@
                 </div>
 
                 <!-- Card 5: Account Generators -->
-                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
-                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300" data-name="Account Generators" data-url="account-generators.html">
                     <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-slow"
                          style="background-color: var(--accent-color);">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -848,8 +855,7 @@
                 </div>
 
                 <!-- Card 6: Games & Shit -->
-                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
-                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300" data-name="Games & Shit" data-url="games.html">
                     <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-slow"
                          style="background-color: var(--accent-color);">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -961,7 +967,56 @@
             document.body.classList.add('animated-background');
         }
 
-        // --- Custom Message Box Logic (Copied for consistency, not directly used on this page) ---
+        // --- Search Functionality ---
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const cards = Array.from(document.querySelectorAll('#cards-container .card'));
+        
+        const tools = cards.map(card => ({
+            name: card.dataset.name,
+            url: card.dataset.url,
+            element: card
+        }));
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            
+            // Filter cards on the page
+            cards.forEach(card => {
+                const name = card.dataset.name.toLowerCase();
+                const isVisible = name.includes(query);
+                card.style.display = isVisible ? '' : 'none';
+            });
+
+            // Update search results dropdown
+            if (query) {
+                const filteredTools = tools.filter(tool => tool.name.toLowerCase().includes(query));
+                searchResults.innerHTML = '';
+                if (filteredTools.length > 0) {
+                    filteredTools.forEach(tool => {
+                        const a = document.createElement('a');
+                        a.href = tool.url;
+                        a.textContent = tool.name;
+                        searchResults.appendChild(a);
+                    });
+                    searchResults.classList.remove('hidden');
+                } else {
+                    searchResults.classList.add('hidden');
+                }
+            } else {
+                searchResults.classList.add('hidden');
+            }
+        });
+        
+        // Hide search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!document.getElementById('search-container').contains(e.target)) {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+
+        // --- Custom Message Box Logic ---
         const messageBoxOverlay = document.getElementById('messageBoxOverlay');
         const messageBoxTitle = document.getElementById('messageBoxTitle');
         const messageBoxText = document.getElementById('messageBoxText');
