@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinny's Palace: Adblocking / Privacy</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter for a clean, modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles to ensure Inter font is applied and for smooth transitions */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Dark mode specific styles */
+        .dark body {
+            background-color: #1a202c; /* Equivalent to bg-gray-900 */
+            color: #e2e8f0; /* Equivalent to text-gray-200 */
+        }
+        .dark .bg-gray-800 { background-color: #2d3748; } /* Darker gray for elements */
+        .dark .bg-gray-700 { background-color: #4a5568; } /* Even darker gray for inputs */
+        .dark .bg-gray-900 { background-color: #1a202c; } /* Main background */
+        .dark .text-gray-100 { color: #f7fafc; }
+        .dark .text-gray-400 { color: #a0aec0; }
+        .dark .border-gray-700 { border-color: #4a5568; }
+        .dark .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .dark .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+
+        /* Light mode specific styles */
+        html:not(.dark) body {
+            background-color: #f7fafc; /* Equivalent to bg-gray-100 */
+            color: #2d3748; /* Equivalent to text-gray-800 */
+        }
+        html:not(.dark) .bg-gray-800 { background-color: #edf2f7; } /* Lighter gray for elements */
+        html:not(.dark) .bg-gray-700 { background-color: #e2e8f0; } /* Even lighter gray for inputs */
+        html:not(.dark) .bg-gray-900 { background-color: #f7fafc; } /* Main background */
+        html:not(.dark) .text-gray-100 { color: #1a202c; }
+        html:not(.dark) .text-gray-400 { color: #718096; }
+        html:not(.dark) .border-gray-700 { border-color: #e2e8f0; }
+
+        /* Custom scrollbar for sidebars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2d3748; /* bg-gray-800 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568; /* bg-gray-700 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280; /* bg-gray-600 */
+        }
+
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+
+    <!-- Header Section (reused from home-screen-design) -->
+    <nav class="bg-gray-800 p-4 flex items-center justify-between shadow-lg rounded-b-lg">
+        <!-- Left side: Logo/Title and Search -->
+        <div class="flex items-center space-x-4">
+            <a href="index.html" class="text-2xl font-bold text-blue-400 hover:text-blue-300 transition-colors">
+                Sinny's Palace
+            </a>
+            <div class="relative">
+                <input type="text" placeholder="Search Palace" class="bg-gray-700 text-gray-300 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-32 sm:w-48">
+                <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Right side: Navigation and Icons -->
+        <div class="flex items-center space-x-4">
+            <a href="#" class="text-gray-400 hover:text-gray-100 transition-colors hidden md:block">Glossary</a>
+            <a href="#" class="text-gray-400 hover:text-gray-100 transition-colors hidden md:block">Backups</a>
+            <a href="#" class="text-gray-400 hover:text-gray-100 transition-colors hidden md:block">Ecosystem</a>
+            
+            <!-- GitHub Icon -->
+            <a href="#" class="text-gray-400 hover:text-gray-100 transition-colors">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.679-.217.679-.481 0-.237-.008-.865-.013-1.702-2.782.602-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.46-1.11-1.46-.908-.619.069-.605.069-.605 1.007.07 1.532 1.03 1.532 1.03.892 1.529 2.341 1.089 2.91.833.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.93 0-1.091.39-1.984 1.029-2.682-.103-.253-.446-1.272.098-2.65 0 0 .84-.268 2.75 1.025A9.428 9.428 0 0112 6.844c.85.004 1.7.11 2.504.324 1.909-1.293 2.747-1.025 2.747-1.025.546 1.379.202 2.398.099 2.651.64.698 1.028 1.591 1.028 2.682 0 3.826-2.338 4.673-4.564 4.925.359.309.678.917.678 1.846 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.685.479C21.133 20.197 24 16.442 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd" />
+                </svg>
+            </a>
+            <!-- Discord Icon -->
+            <a href="#" class="text-gray-400 hover:text-gray-100 transition-colors">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.25 0H3.75C1.679 0 0 1.791 0 4v16c0 2.209 1.679 4 3.75 4h16.5c2.071 0 3.75-1.791 3.75-4V4c0-2.209-1.679-4-3.75-4zm-3.34 16.66c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-.9-.9c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-1.8-1.8c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-2.7-2.7c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-3.6-3.6c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-.9-.9c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm1.8-1.8c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm2.7-2.7c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm3.6-3.6c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54z"/>
+                </svg>
+            </a>
+            <!-- Theme Toggle Button -->
+            <button id="themeToggle" class="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12H2m15.325-4.275l-.707-.707M6.372 17.628l-.707.707M17.628 6.372l.707-.707M6.372 6.372l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-grow">
+        <!-- Left Sidebar -->
+        <aside class="w-64 bg-gray-800 p-6 shadow-lg overflow-y-auto hidden md:block rounded-tr-lg rounded-br-lg">
+            <h2 class="text-lg font-semibold text-gray-100 mb-4">Beginners Guide</h2>
+            <ul class="space-y-2 mb-6">
+                <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Posts</a></li>
+                <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Contribute</a></li>
+                <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Discord</a></li>
+            </ul>
+
+            <h2 class="text-lg font-semibold text-gray-100 mb-4">Wiki</h2>
+            <ul class="space-y-2 mb-6">
+                <!-- Updated hrefs to point to IDs on this page -->
+                <li><a href="#adblocking-privacy" class="text-blue-400 hover:text-blue-400 transition-colors">Adblocking / Privacy</a></li>
+                <li><a href="#artificial-intelligence" class="text-gray-400 hover:text-blue-400 transition-colors">Artificial Intelligence</a></li>
+                <li><a href="#movies-tv-anime" class="text-gray-400 hover:text-blue-400 transition-colors">Movies / TV / Anime</a></li>
+                <li><a href="#music-podcasts-radio" class="text-gray-400 hover:text-blue-400 transition-colors">Music / Podcasts / Radio</a></li>
+                <li><a href="#gaming-emulation" class="text-gray-400 hover:text-blue-400 transition-colors">M. Gaming / Emulation</a></li>
+                <li><a href="#books-comics-manga" class="text-gray-400 hover:text-blue-400 transition-colors">Books / Comics / Manga</a></li>
+                <li><a href="#downloading" class="text-gray-400 hover:text-blue-400 transition-colors">Downloading</a></li>
+                <li><a href="#torrenting" class="text-gray-400 hover:text-blue-400 transition-colors">Torrenting</a></li>
+                <li><a href="#educational" class="text-gray-400 hover:text-blue-400 transition-colors">Educational</a></li>
+                <li><a href="#android-ios" class="text-gray-400 hover:text-blue-400 transition-colors">Android / iOS</a></li>
+                <li><a href="#linux-macos" class="text-gray-400 hover:text-blue-400 transition-colors">Linux / macOS</a></li>
+                <li><a href="#non-english" class="text-gray-400 hover:text-blue-400 transition-colors">Non-English</a></li>
+                <li><a href="#miscellaneous" class="text-gray-400 hover:text-blue-400 transition-colors">Miscellaneous</a></li>
+            </ul>
+
+            <h2 class="text-lg font-semibold text-gray-100 mb-4">Tools</h2>
+            <ul class="space-y-2">
+                <li><a href="#system-tools" class="text-gray-400 hover:text-blue-400 transition-colors">System Tools</a></li>
+                <li><a href="#file-tools" class="text-gray-400 hover:text-blue-400 transition-colors">File Tools</a></li>
+                <li><a href="#internet-tools" class="text-gray-400 hover:text-blue-400 transition-colors">Internet Tools</a></li>
+                <li><a href="#social-media-tools" class="text-gray-400 hover:text-blue-400 transition-colors">Social Media Tools</a></li>
+                <li><a href="#text-tools" class="text-gray-400 hover:text-blue-400 transition-colors">Text Tools</a></li>
+                <li><a href="#gaming-tools" class="text-gray-400 hover:text-blue-400 transition-colors">Gaming Tools</a></li>
+                <li><a href="#image-tools" class="text-gray-400 hover:text-blue-400 transition-colors">Image Tools</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow p-8 overflow-y-auto">
+            <h1 id="adblocking-privacy" class="text-4xl font-extrabold text-gray-100 mb-2">Adblocking / Privacy</h1>
+            <p class="text-lg text-gray-400 mb-8">Adblocking, Privacy, VPNs, Proxies, Antiviruses</p>
+
+            <!-- Feedback Section -->
+            <div class="bg-blue-900 bg-opacity-30 border border-blue-700 p-4 rounded-lg flex items-center justify-between mb-8">
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                    </svg>
+                    <p class="text-blue-200">Got feedback? We'd love to know what you think about this page.</p>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">
+                    Share Feedback
+                </button>
+            </div>
+
+            <!-- Adblocking Section -->
+            <section id="adblocking" class="mb-10">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Adblocking</h2>
+                
+                <!-- Tip Box -->
+                <div class="bg-green-900 bg-opacity-30 border border-green-700 p-4 rounded-lg flex items-start mb-6">
+                    <svg class="w-6 h-6 text-green-400 mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h2V7h2v2z"/>
+                    </svg>
+                    <p class="text-green-200">
+                        <span class="font-bold">TIP:</span> Don't run multiple general adblockers (e.g., uBlock Origin and AdGuard) simultaneously to avoid breakage. Combining general adblockers with tools like SponsorBlock is fine.
+                    </p>
+                </div>
+
+                <!-- Adblocking Links -->
+                <ul class="space-y-3 text-gray-300">
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#spotify-adblockers" class="hover:text-blue-400 transition-colors">Spotify Adblockers</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#twitch-adblockers" class="hover:text-blue-400 transition-colors">Twitch Adblockers</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#bypass-url-redirects" class="hover:text-blue-400 transition-colors">Bypass URL Redirects</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#bypass-article-paywalls" class="hover:text-blue-400 transition-colors">Bypass Article Paywalls</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#ublock-origin" class="hover:text-blue-400 transition-colors">uBlock Origin or UBO Lite (MV3 compatible) - Adblocker / Redundant Extensions</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#report-issues" class="hover:text-blue-400 transition-colors">Report issues - uAssets / Hosts / Adguard / EasyList</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#sponsorblock" class="hover:text-blue-400 transition-colors">SponsorBlock - Skip Sponsored YouTube Ads / Script / 🆉🆉🆉</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#disblock-origin" class="hover:text-blue-400 transition-colors">Disblock Origin or Discord Adblock - Hide Discord Nitro / Boost Ads</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#popupblocker" class="hover:text-blue-400 transition-colors">Popupblocker All, PopUpOFF, Popup Blocker (strict) or Popupblocker - Popup / New Tab Blockers</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#adguard" class="hover:text-blue-400 transition-colors">AdGuard - Adblocker</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#zen-adblocker" class="hover:text-blue-400 transition-colors">Zen - System-Wide Adblocker / 🆉</a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-400 mr-2 flex-shrink-0">✦</span>
+                        <a href="#behindtheoverlay" class="hover:text-blue-400 transition-colors">BehindTheOverlay - Hide Website Overlays</a>
+                    </li>
+                </ul>
+            </section>
+            
+            <!-- Individual Adblocking Sub-sections -->
+            <section id="spotify-adblockers" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Spotify Adblockers</h2>
+                <p class="text-gray-400 mb-4">Here you'll find various methods and tools to block ads on Spotify. Remember to always use reputable sources and follow instructions carefully.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**SpotX:** A common tool for blocking Spotify ads on desktop. <a href="#" class="text-blue-400 hover:underline">Learn more and download here.</a></li>
+                    <li>**Hosts File Blocking:** Manual method for blocking Spotify ad servers via your system's hosts file. This requires technical knowledge.</li>
+                    <li>**Premium Alternatives:** Consider ad-free alternatives if you want a seamless experience without workarounds.</li>
+                </ul>
+            </section>
+
+            <section id="twitch-adblockers" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Twitch Adblockers</h2>
+                <p class="text-gray-400 mb-4">Twitch ads can be persistent. Here are some solutions to help you enjoy an ad-free viewing experience.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Purple Adblock:** A browser extension specifically designed for Twitch. <a href="#" class="text-blue-400 hover:underline">Find it in your browser's store.</a></li>
+                    <li>**TTV LOL:** Another popular option for blocking Twitch ads.</li>
+                    <li>**VPN Usage:** Some users report that connecting to a VPN server in a country with fewer ads can reduce their frequency.</li>
+                </ul>
+            </section>
+
+            <section id="bypass-url-redirects" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Bypass URL Redirects</h2>
+                <p class="text-gray-400 mb-4">Tools and techniques to bypass annoying URL shorteners and redirect pages that often serve ads or track you.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Bypass Paywalls Clean:** A browser extension that helps bypass various paywalls and redirect links.</li>
+                    <li>**FastForward:** An open-source browser extension that automatically skips annoying link shorteners.</li>
+                </ul>
+            </section>
+
+            <section id="bypass-article-paywalls" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Bypass Article Paywalls</h2>
+                <p class="text-gray-400 mb-4">Access articles behind paywalls using these methods. Note that effectiveness may vary and these methods are constantly evolving.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Reader Mode:** Most modern browsers have a built-in reader mode that can sometimes bypass simple paywalls.</li>
+                    <li>**Browser Extensions:** Specific extensions designed to bypass paywalls on various news sites.</li>
+                    <li>**Archive Sites:** Using web archive services to view cached versions of articles.</li>
+                </ul>
+            </section>
+
+            <section id="ublock-origin" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">uBlock Origin or UBO Lite (MV3 compatible)</h2>
+                <p class="text-gray-400 mb-4">The gold standard for adblocking. Highly efficient and customizable.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**uBlock Origin:** A powerful, wide-spectrum blocker. <a href="#" class="text-blue-400 hover:underline">Get it for your browser.</a></li>
+                    <li>**uBO Lite (MV3 compatible):** A lighter version for browsers supporting Manifest V3.</li>
+                    <li>**Custom Filters:** How to add custom filter lists for specific blocking needs.</li>
+                </ul>
+            </section>
+
+            <section id="report-issues" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Report issues - uAssets / Hosts / Adguard / EasyList</h2>
+                <p class="text-gray-400 mb-4">Learn how to report broken filters or new ad types to keep adblockers effective.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**uBlock Origin GitHub:** Report issues directly to the uBlock Origin developers.</li>
+                    <li>**EasyList Forums:** Participate in discussions and report issues related to EasyList filters.</li>
+                </ul>
+            </section>
+
+            <section id="sponsorblock" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">SponsorBlock - Skip Sponsored YouTube Ads / Script</h2>
+                <p class="text-gray-400 mb-4">Crowdsourced browser extension and script to skip sponsored segments, intros, and outros in YouTube videos.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**SponsorBlock Extension:** Available for most browsers. <a href="#" class="text-blue-400 hover:underline">Install here.</a></li>
+                    <li>**Userscripts:** How to install a userscript for SponsorBlock if you prefer that method.</li>
+                </ul>
+            </section>
+
+            <section id="disblock-origin" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Disblock Origin or Discord Adblock</h2>
+                <p class="text-gray-400 mb-4">Tools to hide Discord Nitro / Boost Ads and other unwanted elements within the Discord client.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**BetterDiscord Plugins:** Explore plugins that offer adblocking features for Discord.</li>
+                    <li>**Custom CSS:** Advanced users can use custom CSS to hide specific Discord elements.</li>
+                </ul>
+            </section>
+
+            <section id="popupblocker" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Popupblocker All, PopUpOFF, Popup Blocker (strict) or Popupblocker</h2>
+                <p class="text-gray-400 mb-4">Extensions to combat intrusive pop-up windows and new tab redirects.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Popupblocker All:** Comprehensive pop-up blocking.</li>
+                    <li>**PopUpOFF:** Focuses on aggressive pop-up prevention.</li>
+                </ul>
+            </section>
+
+            <section id="adguard" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">AdGuard - Adblocker</h2>
+                <p class="text-gray-400 mb-4">A powerful adblocking solution available as a browser extension and standalone application.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**AdGuard Browser Extension:** Blocks ads and trackers.</li>
+                    <li>**AdGuard Desktop App:** Provides system-wide adblocking across all applications.</li>
+                </ul>
+            </section>
+
+            <section id="zen-adblocker" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Zen - System-Wide Adblocker</h2>
+                <p class="text-gray-400 mb-4">A system-wide adblocker that works beyond just your browser, protecting your entire device.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Pi-hole:** Network-level ad blocking for your entire home network.</li>
+                    <li>**NextDNS:** DNS-based ad and tracker blocking service.</li>
+                </ul>
+            </section>
+
+            <section id="behindtheoverlay" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">BehindTheOverlay - Hide Website Overlays</h2>
+                <p class="text-gray-400 mb-4">Browser extension to remove annoying overlays like newsletter sign-ups or cookie consent banners.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**BehindTheOverlay Extension:** Makes browsing cleaner by removing intrusive elements.</li>
+                </ul>
+            </section>
+
+            <!-- Other Major Sections -->
+            <section id="adblock-filters" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Adblock Filters</h2>
+                <p class="text-gray-400">Detailed information on various adblock filter lists and how to use them effectively.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**EasyList:** The primary filter list for most adblockers.</li>
+                    <li>**EasyPrivacy:** Blocks tracking scripts.</li>
+                    <li>**Fanboy's Annoyance List:** Blocks social media widgets, in-page pop-ups, and other annoyances.</li>
+                    <li>**Regional Lists:** Specific lists for ads in different languages or regions.</li>
+                </ul>
+            </section>
+
+            <section id="dns-adblocking" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">DNS Adblocking</h2>
+                <p class="text-gray-400">Blocking ads at the DNS level for network-wide protection.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Public DNS Servers:** Using services like AdGuard DNS or NextDNS.</li>
+                    <li>**Router-level Blocking:** Configuring your router to use adblocking DNS.</li>
+                    <li>**Pi-hole Setup Guide:** A comprehensive guide to setting up a Pi-hole.</li>
+                </ul>
+            </section>
+
+            <section id="linux-adblocking" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Linux Adblocking</h2>
+                <p class="text-gray-400">Adblocking solutions tailored for Linux operating systems.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Hosts File:** Editing `/etc/hosts` for basic adblocking.</li>
+                    <li>**UFW Rules:** Using Uncomplicated Firewall to block ad servers.</li>
+                    <li>**Proxy Servers:** Setting up a local proxy for ad filtering.</li>
+                </ul>
+            </section>
+
+            <section id="mac-adblocking" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Mac Adblocking</h2>
+                <p class="text-gray-400">Adblocking tools and methods for macOS users.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Safari Content Blockers:** Native adblocking extensions for Safari.</li>
+                    <li>**Third-party Apps:** Apps like AdGuard for Mac for system-wide blocking.</li>
+                </ul>
+            </section>
+
+            <section id="android-adblocking" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Android Adblocking</h2>
+                <p class="text-gray-400">How to block ads on your Android device, both rooted and non-rooted.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**DNS-based Apps:** Apps like AdGuard for Android (non-root).</li>
+                    <li>**VPN Adblockers:** Using VPNs with built-in adblocking.</li>
+                    <li>**Rooted Solutions:** More powerful adblocking options for rooted devices.</li>
+                </ul>
+            </section>
+
+            <section id="ios-adblocking" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">iOS Adblocking</h2>
+                <p class="text-gray-400">Blocking ads on iPhones and iPads.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Safari Content Blockers:** Apps that integrate with Safari's content blocking API.</li>
+                    <li>**DNS Apps:** Using apps that set up a local VPN for DNS filtering.</li>
+                </ul>
+            </section>
+
+            <section id="antivirus-anti-malware" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Antivirus / Anti-Malware</h2>
+                <p class="text-gray-400">Essential software for protecting your system from malicious threats.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Recommended Free Antivirus:** List of reliable free options.</li>
+                    <li>**Premium Suites:** Overview of paid antivirus solutions.</li>
+                    <li>**Malware Scanners:** Tools like Malwarebytes for on-demand scanning.</li>
+                </ul>
+            </section>
+
+            <section id="file-scanners" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">File Scanners</h2>
+                <p class="text-gray-400">Tools to scan individual files for viruses and malware before opening them.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**VirusTotal:** Online service to analyze suspicious files and URLs.</li>
+                    <li>**Hybrid Analysis:** Advanced sandbox analysis for malware.</li>
+                </ul>
+            </section>
+
+            <section id="privacy" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Privacy</h2>
+                <p class="text-gray-400">Comprehensive guides and tools for enhancing your online privacy.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Privacy Browsers:** Brave, Firefox, Tor Browser.</li>
+                    <li>**Search Engines:** DuckDuckGo, Startpage.</li>
+                    <li>**Email Services:** ProtonMail, Tutanota.</li>
+                </ul>
+            </section>
+
+            <section id="privacy-indexes" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Privacy Indexes</h2>
+                <p class="text-gray-400">Resources that rank and review privacy-focused software and services.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**PrivacyTools.io:** A comprehensive guide to staying private online.</li>
+                    <li>**Restore Privacy:** Reviews and guides on various privacy tools.</li>
+                </ul>
+            </section>
+
+            <section id="network-security" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Network Security</h2>
+                <p class="text-gray-400">Tools and practices for securing your network connection.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Firewalls:** Software and hardware firewalls.</li>
+                    <li>**VPNs:** Virtual Private Networks for encrypted connections.</li>
+                    <li>**Secure DNS:** Using DNS-over-HTTPS or DNS-over-TLS.</li>
+                </ul>
+            </section>
+
+            <section id="linux-privacy" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Linux Privacy</h2>
+                <p class="text-gray-400">Privacy-enhancing configurations and tools for Linux users.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Hardening Guides:** Guides for securing your Linux installation.</li>
+                    <li>**Privacy-focused Distributions:** Tails, Qubes OS.</li>
+                </ul>
+            </section>
+
+            <section id="mac-privacy" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Mac Privacy</h2>
+                <p class="text-gray-400">Tips and tools for improving privacy on macOS.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Privacy Settings:** Configuring macOS privacy options.</li>
+                    <li>**Third-party Privacy Tools:** Apps like Little Snitch for network monitoring.</li>
+                </ul>
+            </section>
+
+            <section id="android-privacy" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Android Privacy</h2>
+                <p class="text-gray-400">Strategies for protecting your privacy on Android devices.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Custom ROMs:** Privacy-focused Android distributions like GrapheneOS.</li>
+                    <li>**App Permissions:** Managing app permissions effectively.</li>
+                </ul>
+            </section>
+
+            <section id="ios-privacy" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">iOS Privacy</h2>
+                <p class="text-gray-400">Enhancing privacy settings and using privacy-focused apps on iOS.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**App Tracking Transparency:** Utilizing Apple's built-in privacy features.</li>
+                    <li>**DNS Filtering Apps:** Apps that provide system-wide ad and tracker blocking.</li>
+                </ul>
+            </section>
+
+            <section id="web-privacy" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Web Privacy</h2>
+                <p class="text-gray-400">Protecting your privacy while browsing the internet.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Browser Extensions:** Privacy Badger, Decentraleyes.</li>
+                    <li>**Cookie Management:** Tools for controlling cookies.</li>
+                    <li>**Fingerprinting Protection:** Techniques to prevent browser fingerprinting.</li>
+                </ul>
+            </section>
+
+            <section id="browser-privacy" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Browser Privacy</h2>
+                <p class="text-gray-400">Choosing and configuring browsers for maximum privacy.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Privacy-focused Browsers:** Brave, Firefox, Tor Browser.</li>
+                    <li>**Browser Settings:** Disabling telemetry, enhancing tracking protection.</li>
+                </ul>
+            </section>
+
+            <section id="password-privacy-2fa" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Password Privacy / 2FA</h2>
+                <p class="text-gray-400">Best practices for secure passwords and two-factor authentication.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Password Managers:** Bitwarden, KeePassXC.</li>
+                    <li>**2FA Methods:** Authenticator apps, hardware keys.</li>
+                </ul>
+            </section>
+
+            <section id="encrypted-messengers" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Encrypted Messengers</h2>
+                <p class="text-gray-400">Secure messaging apps that protect your conversations.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Signal:** End-to-end encrypted messaging.</li>
+                    <li>**Threema:** Private and secure messaging.</li>
+                </ul>
+            </section>
+
+            <section id="email-privacy" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Email Privacy</h2>
+                <p class="text-gray-400">Protecting your email communications from tracking and surveillance.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Encrypted Email Services:** ProtonMail, Tutanota.</li>
+                    <li>**PGP/GPG:** Encrypting emails manually.</li>
+                </ul>
+            </section>
+
+            <section id="data-breach-monitoring" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Data Breach Monitoring</h2>
+                <p class="text-gray-400">Services that alert you if your personal data has been compromised in a breach.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Have I Been Pwned:** Check if your email or phone is in a data breach.</li>
+                    <li>**Password Managers:** Many password managers include breach monitoring.</li>
+                </ul>
+            </section>
+
+            <section id="fingerprinting-tracking" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Fingerprinting / Tracking</h2>
+                <p class="text-gray-400">Understanding and preventing browser fingerprinting and other tracking methods.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Browser Extensions:** CanvasBlocker, Trace.</li>
+                    <li>**Browser Settings:** Disabling JavaScript, limiting fonts.</li>
+                </ul>
+            </section>
+
+            <section id="search-engines" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Search Engines</h2>
+                <p class="text-gray-400">Privacy-focused search engines that don't track your queries.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**DuckDuckGo:** Popular privacy-friendly search engine.</li>
+                    <li>**Startpage:** Uses Google results but with privacy protection.</li>
+                    <li>**Searx:** A metasearch engine that aggregates results from various search engines without tracking.</li>
+                </ul>
+            </section>
+
+            <!-- Tools Sections (Expanded) -->
+            <section id="system-tools" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">System Tools</h2>
+                <p class="text-gray-400">Essential tools for system maintenance, optimization, and security.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Disk Cleaners:** Tools to free up disk space.</li>
+                    <li>**System Monitors:** Utilities to track CPU, RAM, and disk usage.</li>
+                    <li>**Backup Solutions:** Software for creating system backups.</li>
+                </ul>
+            </section>
+
+            <section id="file-tools" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">File Tools</h2>
+                <p class="text-gray-400">Tools for managing, converting, and securing your files.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**File Compressors/Decompressors:** 7-Zip, WinRAR.</li>
+                    <li>**File Converters:** Online and offline tools for various file formats.</li>
+                    <li>**File Encryptors:** Software to encrypt sensitive files.</li>
+                </ul>
+            </section>
+
+            <section id="internet-tools" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Internet Tools</h2>
+                <p class="text-gray-400">Utilities for browsing, downloading, and managing your online experience.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Download Managers:** Accelerate and manage downloads.</li>
+                    <li>**Web Scrapers:** Tools for extracting data from websites.</li>
+                    <li>**Network Analyzers:** Software for monitoring network traffic.</li>
+                </ul>
+            </section>
+
+            <section id="social-media-tools" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Social Media Tools</h2>
+                <p class="text-gray-400">Tools for managing, archiving, or enhancing your social media experience.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Content Downloaders:** Tools to save media from social platforms.</li>
+                    <li>**Privacy Enhancers:** Browser extensions that add privacy features to social media.</li>
+                </ul>
+            </section>
+
+            <section id="text-tools" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Text Tools</h2>
+                <p class="text-gray-400">Utilities for text manipulation, editing, and analysis.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Text Editors:** Notepad++, VS Code.</li>
+                    <li>**Markdown Editors:** Tools for writing and previewing Markdown.</li>
+                    <li>**Text Comparators:** Online tools to compare two text documents.</li>
+                </ul>
+            </section>
+
+            <section id="gaming-tools" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Gaming Tools</h2>
+                <p class="text-gray-400">Tools and utilities for gamers, including emulators, modding tools, and performance enhancers.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Emulators:** RetroArch, Dolphin, PCSX2.</li>
+                    <li>**Game Launchers:** Playnite, GOG Galaxy.</li>
+                    <li>**Modding Tools:** Nexus Mod Manager, Vortex.</li>
+                </ul>
+            </section>
+
+            <section id="image-tools" class="mb-10 pt-8">
+                <h2 class="text-3xl font-bold text-gray-100 mb-4">Image Tools</h2>
+                <p class="text-gray-400">Software for image editing, conversion, and management.</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                    <li>**Image Editors:** GIMP, Krita.</li>
+                    <li>**Image Viewers:** FastStone Image Viewer.</li>
+                    <li>**Image Converters:** Online tools for converting image formats.</li>
+                </ul>
+            </section>
+
+
+        </main>
+
+        <!-- Right Sidebar (On this page) -->
+        <aside class="w-64 bg-gray-800 p-6 shadow-lg overflow-y-auto hidden lg:block rounded-tl-lg rounded-bl-lg">
+            <h2 class="text-lg font-semibold text-gray-100 mb-4">On this page</h2>
+            <ul class="space-y-2">
+                <!-- Updated hrefs to point to IDs on this page -->
+                <li><a href="#adblock-filters" class="text-gray-400 hover:text-blue-400 transition-colors">Adblock Filters</a></li>
+                <li><a href="#dns-adblocking" class="text-gray-400 hover:text-blue-400 transition-colors">DNS Adblocking</a></li>
+                <li><a href="#linux-adblocking" class="text-gray-400 hover:text-blue-400 transition-colors">Linux Adblocking</a></li>
+                <li><a href="#mac-adblocking" class="text-gray-400 hover:text-blue-400 transition-colors">Mac Adblocking</a></li>
+                <li><a href="#android-adblocking" class="text-gray-400 hover:text-blue-400 transition-colors">Android Adblocking</a></li>
+                <li><a href="#ios-adblocking" class="text-gray-400 hover:text-blue-400 transition-colors">iOS Adblocking</a></li>
+                <li><a href="#antivirus-anti-malware" class="text-gray-400 hover:text-blue-400 transition-colors">Antivirus / Anti-Malware</a></li>
+                <li><a href="#file-scanners" class="text-gray-400 hover:text-blue-400 transition-colors">File Scanners</a></li>
+                <li><a href="#privacy" class="text-gray-400 hover:text-blue-400 transition-colors">Privacy</a></li>
+                <li><a href="#privacy-indexes" class="text-gray-400 hover:text-blue-400 transition-colors">Privacy Indexes</a></li>
+                <li><a href="#network-security" class="text-gray-400 hover:text-blue-400 transition-colors">Network Security</a></li>
+                <li><a href="#linux-privacy" class="text-gray-400 hover:text-blue-400 transition-colors">Linux Privacy</a></li>
+                <li><a href="#mac-privacy" class="text-gray-400 hover:text-blue-400 transition-colors">Mac Privacy</a></li>
+                <li><a href="#android-privacy" class="text-gray-400 hover:text-blue-400 transition-colors">Android Privacy</a></li>
+                <li><a href="#ios-privacy" class="text-gray-400 hover:text-blue-400 transition-colors">iOS Privacy</a></li>
+                <li><a href="#web-privacy" class="text-gray-400 hover:text-blue-400 transition-colors">Web Privacy</a></li>
+                <li><a href="#browser-privacy" class="text-gray-400 hover:text-blue-400 transition-colors">Browser Privacy</a></li>
+                <li><a href="#password-privacy-2fa" class="text-gray-400 hover:text-blue-400 transition-colors">Password Privacy / 2FA</a></li>
+                <li><a href="#encrypted-messengers" class="text-gray-400 hover:text-blue-400 transition-colors">Encrypted Messengers</a></li>
+                <li><a href="#email-privacy" class="text-gray-400 hover:text-blue-400 transition-colors">Email Privacy</a></li>
+                <li><a href="#data-breach-monitoring" class="text-gray-400 hover:text-blue-400 transition-colors">Data Breach Monitoring</a></li>
+                <li><a href="#fingerprinting-tracking" class="text-gray-400 hover:text-blue-400 transition-colors">Fingerprinting / Tracking</a></li>
+                <li><a href="#search-engines" class="text-gray-400 hover:text-blue-400 transition-colors">Search Engines</a></li>
+            </ul>
+        </aside>
+    </div>
+
+    <script>
+        // JavaScript for Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Function to set theme based on localStorage or default to dark
+        function setThemeFromLocalStorage() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                htmlElement.classList.remove('dark');
+            } else {
+                htmlElement.classList.add('dark');
+            }
+        }
+
+        // Set theme on page load
+        setThemeFromLocalStorage();
+
+        // Event listener for theme toggle button
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>
