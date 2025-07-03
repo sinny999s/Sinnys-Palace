@@ -677,6 +677,30 @@
             color: var(--text-primary);
             border-color: var(--border-color);
         }
+        /* New styles for modern output list items */
+        .output-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            background-color: var(--tertiary-bg);
+            border: 1px solid var(--border-color);
+        }
+        .output-item:last-child {
+            margin-bottom: 0;
+        }
+        .copy-button {
+            background-color: var(--accent-color);
+            color: var(--button-text);
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem; /* rounded-md */
+            transition: background-color 0.2s ease;
+        }
+        .copy-button:hover {
+            background-color: var(--button-hover-bg);
+        }
         .message-box {
             background-color: var(--secondary-bg);
             border-color: var(--accent-color);
@@ -684,6 +708,77 @@
         }
         .message-box-close {
             color: var(--text-secondary);
+        }
+
+        /* Account Details Modal Specific Styles */
+        .account-modal-content {
+            background-color: var(--secondary-bg);
+            color: var(--text-primary);
+            border: 2px solid var(--accent-color); /* Use accent color for modal border */
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 28rem; /* max-w-sm */
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .modal-overlay.open .account-modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .account-input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem; /* rounded-xl */
+            background-color: var(--tertiary-bg);
+            padding: 0.5rem;
+        }
+        .account-input-group input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            padding: 0.5rem;
+        }
+        .account-input-group input::placeholder {
+            color: var(--text-secondary);
+        }
+        .account-input-group .copy-button {
+            margin-left: 0.5rem;
+            flex-shrink: 0;
+        }
+        .account-button-epic {
+            background-color: #2196f3; /* Epic Games blue */
+            color: white;
+        }
+        .account-button-epic:hover {
+            background-color: #1976d2;
+        }
+        .account-button-pdf {
+            background-color: #ff5722; /* Orange for PDF */
+            color: white;
+        }
+        .account-button-pdf:hover {
+            background-color: #e64a19;
+        }
+        .account-modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .account-modal-close-btn:hover {
+            color: var(--text-primary);
         }
     </style>
 </head>
@@ -749,6 +844,67 @@
             <button id="messageBoxCloseBtn" class="cta-button py-2 px-6 rounded-full"
                     style="background-color: var(--button-bg); color: var(--button-text);">
                 OK
+            </button>
+        </div>
+    </div>
+
+    <!-- Account Details Modal -->
+    <div id="accountDetailsModal" class="modal-overlay">
+        <div class="account-modal-content relative">
+            <button id="closeAccountDetailsModalBtn" class="account-modal-close-btn">&times;</button>
+            <h2 class="text-2xl font-bold mb-6 text-center accent-text" style="color: var(--accent-color);">
+                Create Account Details
+            </h2>
+
+            <div class="mb-6">
+                <label class="block text-gray-300 text-sm font-semibold mb-2" style="color: var(--text-secondary);">Selected Username:</label>
+                <div class="account-input-group">
+                    <input type="text" id="selectedUsernameDisplay" readonly
+                           class="w-full py-2 px-3 rounded-lg focus:outline-none"
+                           style="background: transparent; color: var(--text-primary);">
+                </div>
+            </div>
+
+            <button id="generateAccountDetailsBtn" class="cta-button font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 w-full mb-6"
+                    style="background-color: var(--button-bg); color: var(--button-text);">
+                Generate Account Details
+            </button>
+
+            <h3 class="text-xl font-semibold mb-4 text-center" style="color: var(--text-primary);">Generated Details</h3>
+
+            <div class="mb-4">
+                <label class="block text-gray-300 text-sm font-semibold mb-2" style="color: var(--text-secondary);">Email:</label>
+                <div class="account-input-group">
+                    <input type="text" id="generatedEmail" placeholder="Email will appear here" readonly
+                           class="w-full py-2 px-3 rounded-lg focus:outline-none"
+                           style="background: transparent; color: var(--text-primary);">
+                    <button class="copy-button" onclick="copyToClipboard('generatedEmail')">
+                        <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-300 text-sm font-semibold mb-2" style="color: var(--text-secondary);">Password:</label>
+                <div class="account-input-group">
+                    <input type="text" id="generatedPassword" placeholder="Password will appear here" readonly
+                           class="w-full py-2 px-3 rounded-lg focus:outline-none"
+                           style="background: transparent; color: var(--text-primary);">
+                    <button class="copy-button" onclick="copyToClipboard('generatedPassword')">
+                        <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <button class="cta-button account-button-epic font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 w-full mb-4">
+                Create Account on Epic Games
+            </button>
+            <button class="cta-button account-button-pdf font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 w-full">
+                Download PDF
             </button>
         </div>
     </div>
@@ -864,9 +1020,58 @@
             if (filteredResults.length === 0) {
                 outputDiv.innerHTML = `<p class="text-gray-400" style="color: var(--text-secondary);">No unique variations found for "${input}" within the 16-character limit, or the input itself is the only result.</p>`;
             } else {
-                outputDiv.innerHTML = `<p class="text-gray-400 mb-4" style="color: var(--text-secondary);"><strong>${filteredResults.length} Variations Found:</strong></p>` +
-                                      `<pre class="whitespace-pre-wrap">${filteredResults.join('\n')}</pre>`;
+                // Clear previous content
+                outputDiv.innerHTML = '';
+                // Add a header for the results
+                const header = document.createElement('p');
+                header.className = 'text-gray-400 mb-4';
+                header.style.color = 'var(--text-secondary)';
+                header.innerHTML = `<strong>${filteredResults.length} Variations Found:</strong>`;
+                outputDiv.appendChild(header);
+
+                // Create and append list items for each result
+                filteredResults.forEach(name => {
+                    const listItem = document.createElement('div');
+                    listItem.className = 'output-item';
+                    listItem.innerHTML = `
+                        <span class="font-mono text-base">${name}</span>
+                        <div class="flex space-x-2">
+                            <button class="copy-button" onclick="copyToClipboard('${name}')">
+                                <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                </svg>
+                            </button>
+                            <button class="copy-button" onclick="openAccountDetailsModal('${name}')" style="background-color: var(--button-bg);">
+                                Generate Account
+                            </button>
+                        </div>
+                    `;
+                    outputDiv.appendChild(listItem);
+                });
             }
+        }
+
+        // --- Copy to Clipboard Function ---
+        function copyToClipboard(elementIdOrText) {
+            let textToCopy;
+            if (document.getElementById(elementIdOrText)) {
+                textToCopy = document.getElementById(elementIdOrText).value || document.getElementById(elementIdOrText).textContent;
+            } else {
+                textToCopy = elementIdOrText;
+            }
+
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showMessage("Copied!", "Text copied to clipboard.");
+            } catch (err) {
+                showMessage("Copy Failed", "Unable to copy text. Please copy manually.");
+                console.error('Failed to copy: ', err);
+            }
+            document.body.removeChild(textarea);
         }
 
         // --- Custom Message Box Logic ---
@@ -884,6 +1089,58 @@
         messageBoxCloseBtn.addEventListener('click', () => {
             messageBoxOverlay.classList.remove('open');
         });
+
+        // --- Account Details Modal Logic ---
+        const accountDetailsModal = document.getElementById('accountDetailsModal');
+        const closeAccountDetailsModalBtn = document.getElementById('closeAccountDetailsModalBtn');
+        const selectedUsernameDisplay = document.getElementById('selectedUsernameDisplay');
+        const generateAccountDetailsBtn = document.getElementById('generateAccountDetailsBtn');
+        const generatedEmail = document.getElementById('generatedEmail');
+        const generatedPassword = document.getElementById('generatedPassword');
+
+        function openAccountDetailsModal(username) {
+            selectedUsernameDisplay.value = username;
+            generatedEmail.value = ''; // Clear previous values
+            generatedPassword.value = ''; // Clear previous values
+            accountDetailsModal.classList.add('open');
+        }
+
+        closeAccountDetailsModalBtn.addEventListener('click', () => {
+            accountDetailsModal.classList.remove('open');
+        });
+
+        accountDetailsModal.addEventListener('click', (e) => {
+            if (e.target === accountDetailsModal) {
+                accountDetailsModal.classList.remove('open');
+            }
+        });
+
+        // Function to generate a random string for email/password
+        function generateRandomString(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        // Function to generate random email and password
+        generateAccountDetailsBtn.addEventListener('click', () => {
+            const randomEmailPrefix = generateRandomString(10);
+            generatedEmail.value = `${randomEmailPrefix}@example.com`;
+            generatedPassword.value = generateRandomString(16); // 16 characters for password
+        });
+
+        // Placeholder for Epic Games and PDF buttons
+        document.querySelector('.account-button-epic').addEventListener('click', () => {
+            showMessage("Feature Coming Soon", "This button would typically link to Epic Games account creation with pre-filled details.");
+        });
+
+        document.querySelector('.account-button-pdf').addEventListener('click', () => {
+            showMessage("Feature Coming Soon", "This button would generate a PDF with the account details.");
+        });
+
 
         // --- Theme Editor Modal Logic (Identical to index.html) ---
         const themeEditorModal = document.getElementById('themeEditorModal');
