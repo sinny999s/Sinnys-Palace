@@ -451,7 +451,6 @@
         }
 
         /* Apply theme variables to Tailwind classes */
-        /* These are fallback/initial styles, overridden by JS for active theme */
         .bg-gray-900 { background-color: var(--primary-bg); }
         .bg-gray-800 { background-color: var(--secondary-bg); }
         .bg-gray-700 { background-color: var(--tertiary-bg); }
@@ -652,6 +651,19 @@
         /* Add more animated background definitions for other themes if desired,
            otherwise they will use their static primary-bg */
 
+        /* About Page Specific Styles */
+        .about-container {
+            background-color: var(--secondary-bg);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        .about-section-title {
+            color: var(--accent-color);
+        }
+        .about-text {
+            color: var(--text-secondary);
+        }
+
     </style>
 </head>
 <body class="min-h-screen flex flex-col animated-background">
@@ -730,148 +742,155 @@
             </button>
             <button onclick="window.location.href='https://discord.gg/U8aX9cWYMf'" target="_blank" class="cta-button font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
                     style="background-color: var(--tertiary-bg); color: var(--text-primary); --button-hover-bg: var(--secondary-bg);">
-                Discord
+                Join Discord
             </button>
         </div>
 
-        <!-- Large Central Icon (Play Button inspired) -->
-        <div class="relative w-40 h-40 sm:w-48 sm:h-48 flex items-center justify-center rounded-full shadow-2xl animate-pulse-slow"
-             style="background: linear-gradient(to bottom right, var(--accent-color), var(--button-bg));">
-            <svg class="w-24 h-24 sm:w-28 sm:h-28 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 5v14l11-7z" />
-            </svg>
-        </div>
-    </header>
-
-    <!-- Grid Section -->
-    <main class="container mx-auto px-4 py-12">
-        <p class="text-center text-gray-400 text-lg mb-8" style="color: var(--text-secondary);">Or browse these pages ✨</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Card 1: Games & Shit -->
-            <a href="games.html" class="card block p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
-               style="background-color: var(--secondary-bg); border-color: var(--border-color);">
-                <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 11.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        <!-- Featured Tools Section -->
+        <section class="w-full max-w-5xl px-4">
+            <h2 class="text-3xl font-bold text-center mb-10 accent-text" style="color: var(--accent-color);">
+                Featured Tools & Games
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1: AI Tools -->
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
+                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                    <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-slow"
+                         style="background-color: var(--accent-color);">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 7.373v.868m14-1.736v.868m-7-3.664v.868m-7 0a4 4 0 110 8h.086c.09.782.166 1.577.249 2.378.04.385.076.77.11 1.154.015.16.027.32.037.48.007.09.01.18.01.27.002.09.003.18.003.27a.75.75 0 01-.75.75H5.25a.75.75 0 01-.75-.75c0-.09.001-.18.003-.27.01-.16.022-.32.037-.48.034-.384.07-.769.11-1.154.083-.801.159-1.596.249-2.378H4a4 4 0 110-8h.086zM15 7.373v.868m-7-3.664v.868M19 7.373v.868m-7-3.664v.868m-7 0a4 4 0 110 8h.086c.09.782.166 1.577.249 2.378.04.385.076.77.11 1.154.015.16.027.32.037.48.007.09.01.18.01.27.002.09.003.18.003.27a.75.75 0 01-.75.75H5.25a.75.75 0 01-.75-.75c0-.09.001-.18.003-.27.01-.16.022-.32.037-.48.034-.384.07-.769.11-1.154.083-.801.159-1.596.249-2.378H4a4 4 0 110-8h.086z"></path>
                         </svg>
                     </div>
-                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Games & Shit</h3>
+                    <h3 class="card-title text-2xl font-bold mb-2" style="color: var(--text-primary);">AI Tools</h3>
+                    <p class="card-description text-gray-300 mb-4" style="color: var(--text-secondary);">
+                        Leverage the power of AI for various tasks, from content generation to smart suggestions.
+                    </p>
+                    <a href="ai-tools.html" class="cta-button inline-block py-2 px-5 rounded-full text-sm font-semibold"
+                       style="background-color: var(--button-bg); color: var(--button-text);">
+                        Explore AI
+                    </a>
                 </div>
-                <p class="card-description" style="color: var(--text-secondary);">Play games and explore other fun utilities.</p>
-            </a>
 
-            <!-- Card 2: AI Tools -->
-            <a href="ai-tools.html" class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
-                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
-                <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                <!-- Card 2: Text Utilities -->
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
+                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                    <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                         style="background-color: var(--accent-color);">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                     </div>
-                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">AI Tools</h3>
+                    <h3 class="card-title text-2xl font-bold mb-2" style="color: var(--text-primary);">Text Utilities</h3>
+                    <p class="card-description text-gray-300 mb-4" style="color: var(--text-secondary);">
+                        Tools for text manipulation, formatting, case conversion, and more.
+                    </p>
+                    <a href="text-tools.html" class="cta-button inline-block py-2 px-5 rounded-full text-sm font-semibold"
+                       style="background-color: var(--button-bg); color: var(--button-text);">
+                        Use Text Tools
+                    </a>
                 </div>
-                <p class="card-description" style="color: var(--text-secondary);">Explore smart utilities powered by artificial intelligence.</p>
-            </a>
 
-            <!-- Card 3: Text Utilities -->
-            <a href="text-utilities.html" class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
-                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
-                <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12H6v-2h6v2zm4-3H6V9h10v2zm0-3H6V6h10v2z"/>
+                <!-- Card 3: Unit Converters -->
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
+                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                    <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                         style="background-color: var(--accent-color);">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V9m0 3v1m0 3v1m0-12a9 9 0 110 18 9 9 0 010-18z"></path>
                         </svg>
                     </div>
-                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Text Utilities</h3>
+                    <h3 class="card-title text-2xl font-bold mb-2" style="color: var(--text-primary);">Unit Converters</h3>
+                    <p class="card-description text-gray-300 mb-4" style="color: var(--text-secondary);">
+                        Convert between various units of measurement quickly and accurately.
+                    </p>
+                    <a href="converters.html" class="cta-button inline-block py-2 px-5 rounded-full text-sm font-semibold"
+                       style="background-color: var(--button-bg); color: var(--button-text);">
+                        Convert Units
+                    </a>
                 </div>
-                <p class="card-description" style="color: var(--text-secondary);">Perform various operations on text, from formatting to analysis.</p>
-            </a>
 
-            <!-- Card 4: Unit Converters -->
-            <a href="unit-converters.html" class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
-                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
-                <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                <!-- Card 4: Image Tools -->
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
+                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                    <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                         style="background-color: var(--accent-color);">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                     </div>
-                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Unit Converters</h3>
+                    <h3 class="card-title text-2xl font-bold mb-2" style="color: var(--text-primary);">Image Tools</h3>
+                    <p class="card-description text-gray-300 mb-4" style="color: var(--text-secondary);">
+                        Resize, optimize, and manipulate images with ease.
+                    </p>
+                    <a href="image-tools.html" class="cta-button inline-block py-2 px-5 rounded-full text-sm font-semibold"
+                       style="background-color: var(--button-bg); color: var(--button-text);">
+                        Edit Images
+                    </a>
                 </div>
-                <p class="card-description" style="color: var(--text-secondary);">Quickly convert between different units of measurement.</p>
-            </a>
 
-            <!-- Card 5: Image Tools -->
-            <a href="image-tools.html" class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
-                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
-                <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-5-7z"/>
+                <!-- Card 5: Account Generators -->
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
+                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                    <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                         style="background-color: var(--accent-color);">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2v5a2 2 0 01-2 2H9a2 2 0 01-2-2V9a2 2 0 012-2h6zm0 0V5a2 2 0 00-2-2H9a2 2 0 00-2 2v2m7 0h2a2 2 0 012 2v5a2 2 0 01-2 2H9a2 2 0 01-2-2V9a2 2 0 012-2h2"></path>
                         </svg>
                     </div>
-                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Image Tools</h3>
+                    <h3 class="card-title text-2xl font-bold mb-2" style="color: var(--text-primary);">Account Generators</h3>
+                    <p class="card-description text-gray-300 mb-4" style="color: var(--text-secondary);">
+                        Generate secure usernames, passwords, and even OG names for your accounts.
+                    </p>
+                    <a href="account-generators.html" class="cta-button inline-block py-2 px-5 rounded-full text-sm font-semibold"
+                       style="background-color: var(--button-bg); color: var(--button-text);">
+                        Generate Accounts
+                    </a>
                 </div>
-                <p class="card-description" style="color: var(--text-secondary);">Resize, optimize, and manipulate your images with ease.</p>
-            </a>
 
-            <!-- Card 6: Account Generator -->
-            <a href="account-generator.html" class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
-                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
-                <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                <!-- Card 6: Games & Shit -->
+                <div class="card p-6 rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300"
+                     style="background-color: var(--secondary-bg); border-color: var(--border-color);">
+                    <div class="card-icon-bg w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                         style="background-color: var(--accent-color);">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 011-1h1a2 2 0 100-4H7a1 1 0 01-1-1V7a1 1 0 011-1h3a1 1 0 011-1z"></path>
                         </svg>
                     </div>
-                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Account Generator</h3>
-                </div>
-                <p class="card-description" style="color: var(--text-secondary);">Generate unique usernames and passwords, including OG names!</p>
-            </a>
-
-            <!-- Card 7: System Utilities -->
-            <a href="system-utilities.html" class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
-                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
-                <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 11H5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2zm0 8H5v-6h14v6zM7 15h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                        </svg>
-                    </div>
-                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">System Utilities</h3>
-                </div>
-                <p class="card-description" style="color: var(--text-secondary);">Handy tools for managing your system and daily tasks.</p>
-            </a>
-
-            <!-- Card 8: Development Tools -->
-            <a href="development-tools.html" class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border"
-                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
-                <div class="flex items-center mb-4">
-                    <div class="p-3 rounded-full text-white mr-4 card-icon-bg" style="background-color: var(--accent-color);">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14.6 16.6L19.2 12 14.6 7.4 16 6l6 6-6 6-1.4-1.4zm-5.2 0L4.8 12 9.4 7.4 8 6l-6 6 6 6 1.4-1.4z"/>
-                        </svg>
-                    </div>
-                    <h3 class="card-title text-xl font-semibold" style="color: var(--text-primary);">Development Tools</h3>
-                </div>
-                <p class="card-description" style="color: var(--text-secondary);">Essential utilities for developers and power users.</p>
-            </a>
-
-            <!-- Card 9: New Tool Coming Soon! -->
-            <div class="card p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border flex items-center justify-center text-gray-500"
-                 style="background-color: var(--secondary-bg); border-color: var(--border-color);">
-                <div class="text-center">
-                    <svg class="w-12 h-12 mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-secondary);">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
-                    </svg>
-                    <p class="text-lg font-semibold" style="color: var(--text-secondary);">New Tool Coming Soon!</p>
+                    <h3 class="card-title text-2xl font-bold mb-2" style="color: var(--text-primary);">Games & Shit</h3>
+                    <p class="card-description text-gray-300 mb-4" style="color: var(--text-secondary);">
+                        Take a break and enjoy a collection of fun and engaging games, starting with an improved Snake!
+                    </p>
+                    <a href="games.html" class="cta-button inline-block py-2 px-5 rounded-full text-sm font-semibold"
+                       style="background-color: var(--button-bg); color: var(--button-text);">
+                        Play Games
+                    </a>
                 </div>
             </div>
+        </section>
+    </header>
+
+    <!-- Footer Section -->
+    <footer class="w-full bg-gray-800 p-6 text-center text-gray-400 rounded-t-lg mt-auto"
+            style="background-color: var(--secondary-bg); color: var(--text-secondary);">
+        <p>&copy; 2025 Sinny's Palace. All rights reserved.</p>
+        <div class="flex justify-center space-x-4 mt-2">
+            <a href="privacy.html" class="hover:text-gray-100 transition-colors" style="color: var(--text-secondary);">Privacy Policy</a>
+            <a href="terms.html" class="hover:text-gray-100 transition-colors" style="color: var(--text-secondary);">Terms of Service</a>
         </div>
-    </main>
+    </footer>
+
+    <!-- Custom Message Box (instead of alert) -->
+    <div id="messageBoxOverlay" class="modal-overlay">
+        <div class="message-box modal-content p-6 rounded-xl shadow-lg border-2 max-w-sm w-full text-center"
+             style="background-color: var(--secondary-bg); border-color: var(--accent-color); color: var(--text-primary);">
+            <h3 id="messageBoxTitle" class="text-xl font-bold mb-4 accent-text" style="color: var(--accent-color);"></h3>
+            <p id="messageBoxText" class="mb-6 text-gray-300" style="color: var(--text-secondary);"></p>
+            <button id="messageBoxCloseBtn" class="cta-button py-2 px-6 rounded-full"
+                    style="background-color: var(--button-bg); color: var(--button-text);">
+                OK
+            </button>
+        </div>
+    </div>
 
     <!-- Theme Editor Modal -->
     <div id="themeEditorModal" class="modal-overlay">
@@ -922,15 +941,11 @@
         // Function to apply a theme
         function applyTheme(themeName) {
             const body = document.body;
-            // Remove all existing theme classes
             themes.forEach(t => body.classList.remove(t.className));
-            // Add the new theme class
             const selectedTheme = themes.find(t => t.name === themeName);
             if (selectedTheme) {
                 body.classList.add(selectedTheme.className);
                 localStorage.setItem('currentTheme', themeName);
-
-                // Update the accent-color-rgb for the pulse animation
                 document.documentElement.style.setProperty('--accent-color-rgb', selectedTheme.accentRgb);
             }
         }
@@ -941,40 +956,50 @@
             if (savedTheme) {
                 applyTheme(savedTheme);
             } else {
-                // Set default theme (e.g., Fire Inferno)
-                applyTheme(themes[0].name);
+                applyTheme(themes[0].name); // Default to Fire Inferno if no theme saved
             }
-            // Ensure the animated background class is always present
             document.body.classList.add('animated-background');
         }
 
-        // Modal elements
+        // --- Custom Message Box Logic (Copied for consistency, not directly used on this page) ---
+        const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+        const messageBoxTitle = document.getElementById('messageBoxTitle');
+        const messageBoxText = document.getElementById('messageBoxText');
+        const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+
+        function showMessage(title, text) {
+            messageBoxTitle.textContent = title;
+            messageBoxText.textContent = text;
+            messageBoxOverlay.classList.add('open');
+        }
+
+        messageBoxCloseBtn.addEventListener('click', () => {
+            messageBoxOverlay.classList.remove('open');
+        });
+
+        // --- Theme Editor Modal Logic ---
         const themeEditorModal = document.getElementById('themeEditorModal');
         const themeGrid = document.getElementById('themeGrid');
         const closeThemeEditorBtn = document.getElementById('closeThemeEditorBtn');
-        const openThemeEditorBtn = document.getElementById('themeToggle'); // Re-purpose the existing theme toggle button
+        const openThemeEditorBtn = document.getElementById('themeToggle');
 
-        // Open modal
         openThemeEditorBtn.addEventListener('click', () => {
             themeEditorModal.classList.add('open');
-            renderThemeCards(); // Re-render cards to update active state
+            renderThemeCards();
         });
 
-        // Close modal
         closeThemeEditorBtn.addEventListener('click', () => {
             themeEditorModal.classList.remove('open');
         });
 
-        // Close modal when clicking outside content
         themeEditorModal.addEventListener('click', (e) => {
             if (e.target === themeEditorModal) {
                 themeEditorModal.classList.remove('open');
             }
         });
 
-        // Render theme cards in the modal
         function renderThemeCards() {
-            themeGrid.innerHTML = ''; // Clear previous cards
+            themeGrid.innerHTML = '';
             const currentActiveTheme = localStorage.getItem('currentTheme') || themes[0].name;
 
             themes.forEach(theme => {
@@ -983,9 +1008,7 @@
                 if (theme.name === currentActiveTheme) {
                     themeCard.classList.add('active');
                 }
-                // Apply the current theme's secondary background to the theme card itself
                 themeCard.style.backgroundColor = 'var(--secondary-bg)';
-
 
                 themeCard.innerHTML = `
                     <div class="w-full h-24 rounded-lg mb-3 theme-preview-box ${theme.name === currentActiveTheme ? 'active-border' : ''}" style="background: ${theme.previewGradient}; border-color: var(--border-color);"></div>
@@ -994,14 +1017,16 @@
                 `;
                 themeCard.addEventListener('click', () => {
                     applyTheme(theme.name);
-                    renderThemeCards(); // Re-render to update active state
+                    renderThemeCards();
                 });
                 themeGrid.appendChild(themeCard);
             });
         }
 
-        // Initialize theme on page load
-        document.addEventListener('DOMContentLoaded', initializeTheme);
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTheme();
+        });
     </script>
 </body>
 </html>
