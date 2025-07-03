@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tools - Sinny's Palace</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base CSS Variables for Theming (Same as Homepage) */
+        :root {
+            --primary-bg: #1a202c;
+            --secondary-bg: #2d3748;
+            --tertiary-bg: #4a5568;
+            --text-primary: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --accent-color: #63b3ed;
+            --button-bg: #4299e1;
+            --button-text: #ffffff;
+            --button-hover-bg: #3182ce;
+            --border-color: #4a5568;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --modal-bg: #2d3748;
+            --modal-border: #4a5568;
+            --accent-color-rgb: 99, 179, 237;
+        }
+
+        /* All 20+ Theme Overrides (Same as Homepage, truncated for brevity) */
+        .theme-fire-inferno { --primary-bg: #1a0a0a; --secondary-bg: #3b0f0f; --tertiary-bg: #5a1a1a; --text-primary: #ffffff; --text-secondary: #ffad87; --accent-color: #ff7f50; --button-bg: #e54d2e; --button-text: #ffffff; --button-hover-bg: #c23b22; --border-color: #ff7f50; --card-shadow: 0 5px 15px rgba(255, 127, 80, 0.3); --modal-bg: #3b0f0f; --modal-border: #ff7f50; --accent-color-rgb: 255, 127, 80; }
+        .theme-deep-ocean { --primary-bg: #0a1a2a; --secondary-bg: #1a2a3a; --tertiary-bg: #2a3a4a; --text-primary: #e0f2f7; --text-secondary: #a0d9ef; --accent-color: #4fc3f7; --button-bg: #2196f3; --button-text: #ffffff; --button-hover-bg: #1976d2; --border-color: #4fc3f7; --card-shadow: 0 5px 15px rgba(79, 195, 247, 0.3); --modal-bg: #1a2a3a; --modal-border: #4fc3f7; --accent-color-rgb: 79, 195, 247; }
+        .theme-forest-green { --primary-bg: #0a1a0a; --secondary-bg: #1a2a1a; --tertiary-bg: #2a3a2a; --text-primary: #e6ffe6; --text-secondary: #a0e6a0; --accent-color: #66bb6a; --button-bg: #4caf50; --button-text: #ffffff; --button-hover-bg: #388e3c; --border-color: #66bb6a; --card-shadow: 0 5px 15px rgba(102, 187, 106, 0.3); --modal-bg: #1a2a1a; --modal-border: #66bb6a; --accent-color-rgb: 102, 187, 106; }
+        .theme-cyberpunk-glitch { --primary-bg: #0d001a; --secondary-bg: #1a0033; --tertiary-bg: #2a004d; --text-primary: #00ffff; --text-secondary: #ff00ff; --accent-color: #00ffff; --button-bg: #ff00ff; --button-text: #0d001a; --button-hover-bg: #e600e6; --border-color: #00ffff; --card-shadow: 0 5px 15px rgba(0, 255, 255, 0.4); --modal-bg: #1a0033; --modal-border: #00ffff; --accent-color-rgb: 0, 255, 255; }
+        .theme-arctic-frost { --primary-bg: #0f1c2c; --secondary-bg: #1c2c3c; --tertiary-bg: #2c3c4c; --text-primary: #e0f7fa; --text-secondary: #b2ebf2; --accent-color: #80deea; --button-bg: #00bcd4; --button-text: #ffffff; --button-hover-bg: #00838f; --border-color: #80deea; --card-shadow: 0 5px 15px rgba(128, 222, 234, 0.3); --modal-bg: #1c2c3c; --modal-border: #80deea; --accent-color-rgb: 128, 222, 234; }
+        .theme-solar-flare { --primary-bg: #2a0a0a; --secondary-bg: #3a1a0a; --tertiary-bg: #4a2a0a; --text-primary: #fff8e1; --text-secondary: #ffe082; --accent-color: #ffb300; --button-bg: #ff8f00; --button-text: #ffffff; --button-hover-bg: #e65100; --border-color: #ffb300; --card-shadow: 0 5px 15px rgba(255, 179, 0, 0.3); --modal-bg: #3a1a0a; --modal-border: #ffb300; --accent-color-rgb: 255, 179, 0; }
+        .theme-twilight-purple { --primary-bg: #1a0a2a; --secondary-bg: #2a1a3a; --tertiary-bg: #3a2a4a; --text-primary: #f3e5f5; --text-secondary: #ce93d8; --accent-color: #ab47bc; --button-bg: #8e24aa; --button-text: #ffffff; --button-hover-bg: #6a1b9a; --border-color: #ab47bc; --card-shadow: 0 5px 15px rgba(171, 71, 188, 0.3); --modal-bg: #2a1a3a; --modal-border: #ab47bc; --accent-color-rgb: 171, 71, 188; }
+        .theme-desert-sunset { --primary-bg: #2a1a0a; --secondary-bg: #3a2a0a; --tertiary-bg: #4a3a0a; --text-primary: #fffde7; --text-secondary: #fff59d; --accent-color: #ffc107; --button-bg: #ff9800; --button-text: #3a2a0a; --button-hover-bg: #fb8c00; --border-color: #ffc107; --card-shadow: 0 5px 15px rgba(255, 193, 7, 0.3); --modal-bg: #3a2a0a; --modal-border: #ffc107; --accent-color-rgb: 255, 193, 7; }
+        .theme-vaporwave-dreams { --primary-bg: #0a0a2a; --secondary-bg: #1a0a3a; --tertiary-bg: #2a0a4a; --text-primary: #e0f7fa; --text-secondary: #f06292; --accent-color: #80cbc4; --button-bg: #4dd0e1; --button-text: #1a0a3a; --button-hover-bg: #26c6da; --border-color: #f06292; --card-shadow: 0 5px 15px rgba(128, 203, 196, 0.4); --modal-bg: #1a0a3a; --modal-border: #f06292; --accent-color-rgb: 128, 203, 196; }
+        .theme-emerald-city { --primary-bg: #0a2a1a; --secondary-bg: #1a3a2a; --tertiary-bg: #2a4a3a; --text-primary: #e8f5e9; --text-secondary: #a5d6a7; --accent-color: #4caf50; --button-bg: #388e3c; --button-text: #ffffff; --button-hover-bg: #2e7d32; --border-color: #4caf50; --card-shadow: 0 5px 15px rgba(76, 175, 80, 0.3); --modal-bg: #1a3a2a; --modal-border: #4caf50; --accent-color-rgb: 76, 175, 80; }
+        .theme-ruby-red { --primary-bg: #2a0a0a; --secondary-bg: #3a0a0a; --tertiary-bg: #4a0a0a; --text-primary: #ffebee; --text-secondary: #ef9a9a; --accent-color: #ef5350; --button-bg: #d32f2f; --button-text: #ffffff; --button-hover-bg: #c62828; --border-color: #ef5350; --card-shadow: 0 5px 15px rgba(239, 83, 80, 0.3); --modal-bg: #3a0a0a; --modal-border: #ef5350; --accent-color-rgb: 239, 83, 80; }
+        .theme-golden-hour { --primary-bg: #fffde7; --secondary-bg: #fff9c4; --tertiary-bg: #fff59d; --text-primary: #212121; --text-secondary: #757575; --accent-color: #ffeb3b; --button-bg: #ffc107; --button-text: #212121; --button-hover-bg: #ffb300; --border-color: #ffeb3b; --card-shadow: 0 5px 15px rgba(255, 235, 59, 0.3); --modal-bg: #fff9c4; --modal-border: #ffeb3b; --accent-color-rgb: 255, 235, 59; }
+        .theme-midnight-blue { --primary-bg: #0a0a1a; --secondary-bg: #1a1a2a; --tertiary-bg: #2a2a3a; --text-primary: #e3f2fd; --text-secondary: #90caf9; --accent-color: #42a5f5; --button-bg: #1e88e5; --button-text: #ffffff; --button-hover-bg: #1565c0; --border-color: #42a5f5; --card-shadow: 0 5px 15px rgba(66, 165, 245, 0.3); --modal-bg: #1a1a2a; --modal-border: #42a5f5; --accent-color-rgb: 66, 165, 245; }
+        .theme-grayscale-modern { --primary-bg: #212121; --secondary-bg: #424242; --tertiary-bg: #616161; --text-primary: #f5f5f5; --text-secondary: #bdbdbd; --accent-color: #9e9e9e; --button-bg: #757575; --button-text: #ffffff; --button-hover-bg: #616161; --border-color: #9e9e9e; --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); --modal-bg: #424242; --modal-border: #9e9e9e; --accent-color-rgb: 158, 158, 158; }
+        .theme-candy-pop { --primary-bg: #ffebee; --secondary-bg: #f8bbd0; --tertiary-bg: #f48fb1; --text-primary: #424242; --text-secondary: #880e4f; --accent-color: #e91e63; --button-bg: #ec407a; --button-text: #ffffff; --button-hover-bg: #d81b60; --border-color: #e91e63; --card-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); --modal-bg: #f8bbd0; --modal-border: #e91e63; --accent-color-rgb: 233, 30, 99; }
+        .theme-steampunk-brass { --primary-bg: #2e1a0a; --secondary-bg: #4e2a0a; --tertiary-bg: #6e3a0a; --text-primary: #f5f5dc; --text-secondary: #d4ac0d; --accent-color: #b8860b; --button-bg: #a0522d; --button-text: #f5f5dc; --button-hover-bg: #8b4513; --border-color: #b8860b; --card-shadow: 0 5px 15px rgba(184, 134, 11, 0.3); --modal-bg: #4e2a0a; --modal-border: #b8860b; --accent-color-rgb: 184, 134, 11; }
+        .theme-neon-glow { --primary-bg: #000000; --secondary-bg: #1a001a; --tertiary-bg: #2a002a; --text-primary: #00ff00; --text-secondary: #ff00ff; --accent-color: #00ffff; --button-bg: #ff00ff; --button-text: #000000; --button-hover-bg: #e600e6; --border-color: #00ff00; --card-shadow: 0 5px 20px rgba(0, 255, 0, 0.6); --modal-bg: #1a001a; --modal-border: #00ff00; --accent-color-rgb: 0, 255, 255; }
+        .theme-retro-arcade { --primary-bg: #0a0a2a; --secondary-bg: #1a0a3a; --tertiary-bg: #2a0a4a; --text-primary: #ffee58; --text-secondary: #4dd0e1; --accent-color: #ff4081; --button-bg: #ff1744; --button-text: #ffffff; --button-hover-bg: #d50000; --border-color: #ffee58; --card-shadow: 0 5px 15px rgba(255, 64, 129, 0.4); --modal-bg: #1a0a3a; --modal-border: #ffee58; --accent-color-rgb: 255, 64, 129; }
+        .theme-space-odyssey { --primary-bg: #00001a; --secondary-bg: #0a0a2a; --tertiary-bg: #1a1a3a; --text-primary: #e0f2f7; --text-secondary: #b3e5fc; --accent-color: #2196f3; --button-bg: #1976d2; --button-text: #ffffff; --button-hover-bg: #1565c0; --border-color: #2196f3; --card-shadow: 0 5px 15px rgba(33, 150, 243, 0.3); --modal-bg: #0a0a2a; --modal-border: #2196f3; --accent-color-rgb: 33, 150, 243; }
+        .theme-classic-bw { --primary-bg: #000000; --secondary-bg: #1a1a1a; --tertiary-bg: #333333; --text-primary: #ffffff; --text-secondary: #cccccc; --accent-color: #999999; --button-bg: #555555; --button-text: #ffffff; --button-hover-bg: #444444; --border-color: #777777; --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); --modal-bg: #1a1a1a; --modal-border: #777777; --accent-color-rgb: 153, 153, 153; }
+        .theme-ocean-sunset { --primary-bg: #0a1a2a; --secondary-bg: #1a2a3a; --tertiary-bg: #2a3a4a; --text-primary: #ffe0b2; --text-secondary: #ffcc80; --accent-color: #ff9800; --button-bg: #ff5722; --button-text: #ffffff; --button-hover-bg: #e64a19; --border-color: #ff9800; --card-shadow: 0 5px 15px rgba(255, 87, 34, 0.3); --modal-bg: #1a2a3a; --modal-border: #ff9800; --accent-color-rgb: 255, 87, 34; }
+        .theme-sakura-bloom { --primary-bg: #fff0f5; --secondary-bg: #fce4ec; --tertiary-bg: #f8bbd0; --text-primary: #4a148c; --text-secondary: #880e4f; --accent-color: #e91e63; --button-bg: #f06292; --button-text: #ffffff; --button-hover-bg: #ec407a; --border-color: #e91e63; --card-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); --modal-bg: #fce4ec; --modal-border: #e91e63; --accent-color-rgb: 233, 30, 99; }
+        .theme-earthy-tones { --primary-bg: #2e2e2e; --secondary-bg: #3e3e3e; --tertiary-bg: #4e4e4e; --text-primary: #f5f5dc; --text-secondary: #d2b48c; --accent-color: #8b4513; --button-bg: #a0522d; --button-text: #f5f5dc; --button-hover-bg: #8b4513; --border-color: #8b4513; --card-shadow: 0 5px 15px rgba(139, 69, 19, 0.3); --modal-bg: #3e3e3e; --modal-border: #8b4513; --accent-color-rgb: 139, 69, 19; }
+
+        /* Base styles from homepage */
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.5s ease, color 0.5s ease; background-color: var(--primary-bg); color: var(--text-primary); }
+        .bg-gray-900 { background-color: var(--primary-bg); }
+        .bg-gray-800 { background-color: var(--secondary-bg); }
+        .bg-gray-700 { background-color: var(--tertiary-bg); }
+        .text-gray-100 { color: var(--text-primary); }
+        .text-gray-300 { color: var(--text-secondary); }
+        .text-gray-400 { color: var(--text-secondary); }
+        .border-gray-700 { border-color: var(--border-color); }
+        .nav-link, .icon-link { color: var(--text-secondary); transition: color 0.3s ease; }
+        .nav-link:hover, .icon-link:hover { color: var(--text-primary); }
+        .search-input { background-color: var(--tertiary-bg); color: var(--text-primary); border-color: var(--border-color); }
+        .search-input::placeholder { color: var(--text-secondary); }
+        .search-icon { color: var(--text-secondary); }
+        .accent-text { color: var(--accent-color); }
+        .cta-button { background-color: var(--button-bg); color: var(--button-text); transition: background-color 0.3s ease, transform 0.3s ease; }
+        .cta-button:hover { background-color: var(--button-hover-bg); transform: scale(1.05); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .modal-overlay.open { opacity: 1; visibility: visible; }
+        .modal-content { background-color: var(--modal-bg); color: var(--text-primary); border: 2px solid var(--modal-border); border-radius: 1rem; padding: 2rem; max-width: 96rem; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); transform: translateY(-20px); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; }
+        .modal-overlay.open .modal-content { transform: translateY(0); opacity: 1; }
+        .theme-card { border: 2px solid transparent; transition: border-color 0.2s ease, transform 0.2s ease; background-color: var(--secondary-bg); }
+        .theme-card.active { border-color: var(--accent-color); }
+        .theme-card:hover { transform: scale(1.03); cursor: pointer; }
+        .theme-preview-box { height: 6rem; border-radius: 0.5rem; margin-bottom: 0.75rem; border: 1px solid var(--border-color); }
+        .theme-preview-box.active-border { border-color: var(--accent-color); }
+
+        /* Specific styles for this page */
+        .tool-list-item {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem; /* rounded-2xl */
+            padding: 1.5rem; /* p-6 */
+            display: flex;
+            align-items: center;
+            gap: 1.5rem; /* space-x-6 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            text-decoration: none; /* remove underline from link */
+        }
+
+        .tool-list-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--card-shadow);
+            border-color: var(--accent-color);
+        }
+
+        .tool-list-icon {
+            flex-shrink: 0;
+            width: 3.5rem; /* w-14 */
+            height: 3.5rem; /* h-14 */
+            border-radius: 0.75rem; /* rounded-xl */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--tertiary-bg);
+        }
+
+        .tool-list-icon svg {
+            width: 2rem; /* w-8 */
+            height: 2rem; /* h-8 */
+            color: var(--accent-color);
+        }
+
+        .tool-list-text h3 {
+            color: var(--text-primary);
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 700; /* font-bold */
+        }
+
+        .tool-list-text p {
+            color: var(--text-secondary);
+        }
+
+        .tool-list-arrow {
+            margin-left: auto;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            color: var(--accent-color);
+        }
+
+        .tool-list-item:hover .tool-list-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header Section (Identical to Homepage) -->
+    <nav class="bg-gray-800 p-4 flex items-center justify-between shadow-lg rounded-b-lg sticky top-0 z-50"
+         style="background-color: var(--secondary-bg);">
+        <!-- Left side: Logo/Title and Search -->
+        <div class="flex items-center space-x-4">
+            <a href="index.html" class="text-2xl font-bold accent-text hover:opacity-80 transition-colors">
+                Sinny's Palace
+            </a>
+        </div>
+
+        <!-- Right side: Navigation and Icons -->
+        <div class="flex items-center space-x-4">
+            <a href="index.html" class="nav-link hidden md:block" style="color: var(--text-secondary);">Home</a>
+            <a href="piracy.html" class="nav-link hidden md:block" style="color: var(--text-secondary);">Piracy</a>
+            
+            <a href="https://github.com/sinny999s" target="_blank" class="icon-link" style="color: var(--text-secondary);">
+                <!-- GitHub Icon SVG -->
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.679-.217.679-.481 0-.237-.008-.865-.013-1.702-2.782.602-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.46-1.11-1.46-.908-.619.069-.605.069-.605 1.007.07 1.532 1.03 1.532 1.03.892 1.529 2.341 1.089 2.91.833.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.93 0-1.091.39-1.984 1.029-2.682-.103-.253-.446-1.272.098-2.65 0 0 .84-.268 2.75 1.025A9.428 9.428 0 0112 6.844c.85.004 1.7.11 2.504.324 1.909-1.293 2.747-1.025 2.747-1.025.546 1.379.202 2.398.099 2.651.64.698 1.028 1.591 1.028 2.682 0 3.826-2.338 4.673-4.564 4.925.359.309.678.917.678 1.846 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.685.479C21.133 20.197 24 16.442 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd" /></svg>
+            </a>
+            <a href="https://discord.gg/U8aX9cWYMf" target="_blank" class="icon-link" style="color: var(--text-secondary);">
+                <!-- Discord Icon SVG -->
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 0H3.75C1.679 0 0 1.791 0 4v16c0 2.209 1.679 4 3.75 4h16.5c2.071 0 3.75-1.791 3.75-4V4c0-2.209-1.679-4-3.75-4zm-3.34 16.66c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-.9-.9c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-1.8-1.8c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-2.7-2.7c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-3.6-3.6c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-.9-.9c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm1.8-1.8c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm2.7-2.7c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm3.6-3.6c-.15.15-.39.15-.54 0-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 .15.15.15.39 0 .54z"/></svg>
+            </a>
+            <button id="themeToggle" class="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    style="background-color: var(--tertiary-bg); color: var(--text-secondary);">
+                <!-- Theme Icon SVG -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12H2m15.325-4.275l-.707-.707M6.372 17.628l-.707.707M17.628 6.372l.707-.707M6.372 6.372l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold mb-2" style="color: var(--text-primary);">All Tools</h1>
+            <p class="text-xl" style="color: var(--text-secondary);">Your central hub for every utility in the Palace.</p>
+        </header>
+
+        <div class="max-w-4xl mx-auto space-y-6">
+            
+            <!-- Piracy Card -->
+            <a href="piracy.html" class="tool-list-item">
+                <div class="tool-list-icon">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                </div>
+                <div class="tool-list-text">
+                    <h3>Piracy</h3>
+                    <p>Access a suite of tools for digital content acquisition and management.</p>
+                </div>
+                <div class="tool-list-arrow">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+            </a>
+
+            <!-- Text Utilities Card -->
+            <a href="base64-tools.html" class="tool-list-item">
+                 <div class="tool-list-icon">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <div class="tool-list-text">
+                    <h3>Text Utilities</h3>
+                    <p>Tools for text manipulation, formatting, case conversion, and more.</p>
+                </div>
+                <div class="tool-list-arrow">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+            </a>
+
+            <!-- Developer Tools Card -->
+            <a href="devtools.html" class="tool-list-item">
+                <div class="tool-list-icon">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                </div>
+                <div class="tool-list-text">
+                    <h3>Developer Tools</h3>
+                    <p>A collection of tools for developers, like formatters and encoders.</p>
+                </div>
+                <div class="tool-list-arrow">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+            </a>
+
+            <!-- Image Tools Card -->
+            <a href="image-tools.html" class="tool-list-item">
+                <div class="tool-list-icon">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <div class="tool-list-text">
+                    <h3>Image Tools</h3>
+                    <p>Resize, optimize, and manipulate images with ease.</p>
+                </div>
+                <div class="tool-list-arrow">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+            </a>
+
+            <!-- Account Generators Card -->
+            <a href="account-generators.html" class="tool-list-item">
+                <div class="tool-list-icon">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2v5a2 2 0 01-2 2H9a2 2 0 01-2-2V9a2 2 0 012-2h6zm0 0V5a2 2 0 00-2-2H9a2 2 0 00-2 2v2m7 0h2a2 2 0 012 2v5a2 2 0 01-2 2H9a2 2 0 01-2-2V9a2 2 0 012-2h2"></path></svg>
+                </div>
+                <div class="tool-list-text">
+                    <h3>Account Generators</h3>
+                    <p>Generate secure usernames, passwords, and even OG names.</p>
+                </div>
+                <div class="tool-list-arrow">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+            </a>
+
+            <!-- Games Card -->
+            <a href="games.html" class="tool-list-item">
+                <div class="tool-list-icon">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 011-1h1a2 2 0 100-4H7a1 1 0 01-1-1V7a1 1 0 011-1h3a1 1 0 011-1z"></path></svg>
+                </div>
+                <div class="tool-list-text">
+                    <h3>Games & Shit</h3>
+                    <p>Take a break and enjoy a collection of fun and engaging games.</p>
+                </div>
+                <div class="tool-list-arrow">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Footer Section (Identical to Homepage) -->
+    <footer class="w-full bg-gray-800 p-6 text-center text-gray-400 rounded-t-lg mt-auto"
+            style="background-color: var(--secondary-bg); color: var(--text-secondary);">
+        <p>&copy; 2025 Sinny's Palace. All rights reserved.</p>
+        <div class="flex justify-center space-x-4 mt-2">
+            <a href="privacy.html" class="hover:text-gray-100 transition-colors" style="color: var(--text-secondary);">Privacy Policy</a>
+            <a href="terms.html" class="hover:text-gray-100 transition-colors" style="color: var(--text-secondary);">Terms of Service</a>
+        </div>
+    </footer>
+
+    <!-- Theme Editor Modal (Identical to Homepage) -->
+    <div id="themeEditorModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="text-3xl font-bold mb-6 text-center accent-text" style="color: var(--accent-color);">
+                Choose Your Theme
+            </h2>
+            <div id="themeGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Theme cards will be injected here by JavaScript -->
+            </div>
+            <div class="mt-8 text-center">
+                <button id="closeThemeEditorBtn" class="cta-button font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                        style="background-color: var(--button-bg); color: var(--button-text);">
+                    Close Theme Editor
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript for Theme Switching (Identical to Homepage) -->
+    <script>
+        const themes = [
+            { name: "Fire Inferno", className: "theme-fire-inferno", previewGradient: "linear-gradient(to bottom right, #3b0f0f, #e54d2e, #ff7f50)", accentRgb: "255, 127, 80" },
+            { name: "Deep Ocean", className: "theme-deep-ocean", previewGradient: "linear-gradient(to bottom right, #1a2a3a, #2196f3, #4fc3f7)", accentRgb: "79, 195, 247" },
+            { name: "Forest Green", className: "theme-forest-green", previewGradient: "linear-gradient(to bottom right, #1a2a1a, #4caf50, #66bb6a)", accentRgb: "102, 187, 106" },
+            { name: "Cyberpunk Glitch", className: "theme-cyberpunk-glitch", previewGradient: "linear-gradient(to bottom right, #1a0033, #ff00ff, #00ffff)", accentRgb: "0, 255, 255" },
+            { name: "Arctic Frost", className: "theme-arctic-frost", previewGradient: "linear-gradient(to bottom right, #1c2c3c, #00bcd4, #80deea)", accentRgb: "128, 222, 234" },
+            { name: "Solar Flare", className: "theme-solar-flare", previewGradient: "linear-gradient(to bottom right, #3a1a0a, #ff8f00, #ffb300)", accentRgb: "255, 179, 0" },
+            { name: "Twilight Purple", className: "theme-twilight-purple", previewGradient: "linear-gradient(to bottom right, #2a1a3a, #8e24aa, #ab47bc)", accentRgb: "171, 71, 188" },
+            { name: "Desert Sunset", className: "theme-desert-sunset", previewGradient: "linear-gradient(to bottom right, #3a2a0a, #ff9800, #ffc107)", accentRgb: "255, 193, 7" },
+            { name: "Vaporwave Dreams", className: "theme-vaporwave-dreams", previewGradient: "linear-gradient(to bottom right, #1a0a3a, #4dd0e1, #f06292)", accentRgb: "128, 203, 196" },
+            { name: "Emerald City", className: "theme-emerald-city", previewGradient: "linear-gradient(to bottom right, #1a3a2a, #388e3c, #4caf50)", accentRgb: "76, 175, 80" },
+            { name: "Ruby Red", className: "theme-ruby-red", previewGradient: "linear-gradient(to bottom right, #3a0a0a, #d32f2f, #ef5350)", accentRgb: "239, 83, 80" },
+            { name: "Golden Hour", className: "theme-golden-hour", previewGradient: "linear-gradient(to bottom right, #fff9c4, #ffc107, #ffeb3b)", accentRgb: "255, 235, 59" },
+            { name: "Midnight Blue", className: "theme-midnight-blue", previewGradient: "linear-gradient(to bottom right, #1a1a2a, #1e88e5, #42a5f5)", accentRgb: "66, 165, 245" },
+            { name: "Grayscale Modern", className: "theme-grayscale-modern", previewGradient: "linear-gradient(to bottom right, #424242, #757575, #9e9e9e)", accentRgb: "158, 158, 158" },
+            { name: "Candy Pop", className: "theme-candy-pop", previewGradient: "linear-gradient(to bottom right, #f8bbd0, #ec407a, #e91e63)", accentRgb: "233, 30, 99" },
+            { name: "Steampunk Brass", className: "theme-steampunk-brass", previewGradient: "linear-gradient(to bottom right, #4e2a0a, #a0522d, #b8860b)", accentRgb: "184, 134, 11" },
+            { name: "Neon Glow", className: "theme-neon-glow", previewGradient: "linear-gradient(to bottom right, #1a001a, #ff00ff, #00ff00)", accentRgb: "0, 255, 255" },
+            { name: "Retro Arcade", className: "theme-retro-arcade", previewGradient: "linear-gradient(to bottom right, #1a0a3a, #ff1744, #ffee58)", accentRgb: "255, 64, 129" },
+            { name: "Space Odyssey", className: "theme-space-odyssey", previewGradient: "linear-gradient(to bottom right, #0a0a2a, #1976d2, #2196f3)", accentRgb: "33, 150, 243" },
+            { name: "Classic Black & White", className: "theme-classic-bw", previewGradient: "linear-gradient(to bottom right, #1a1a1a, #555555, #999999)", accentRgb: "153, 153, 153" },
+            { name: "Ocean Sunset", className: "theme-ocean-sunset", previewGradient: "linear-gradient(to bottom right, #1a2a3a, #ff5722, #ff9800)", accentRgb: "255, 87, 34" },
+            { name: "Sakura Bloom", className: "theme-sakura-bloom", previewGradient: "linear-gradient(to bottom right, #fce4ec, #f06292, #e91e63)", accentRgb: "233, 30, 99" },
+            { name: "Earthy Tones", className: "theme-earthy-tones", previewGradient: "linear-gradient(to bottom right, #3e3e3e, #a0522d, #8b4513)", accentRgb: "139, 69, 19" },
+        ];
+
+        function applyTheme(themeName) {
+            const body = document.body;
+            themes.forEach(t => body.classList.remove(t.className));
+            const selectedTheme = themes.find(t => t.name === themeName);
+            if (selectedTheme) {
+                body.classList.add(selectedTheme.className);
+                localStorage.setItem('currentTheme', themeName);
+                document.documentElement.style.setProperty('--accent-color-rgb', selectedTheme.accentRgb);
+            }
+        }
+
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('currentTheme');
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else {
+                applyTheme(themes[0].name); 
+            }
+        }
+
+        const themeEditorModal = document.getElementById('themeEditorModal');
+        const themeGrid = document.getElementById('themeGrid');
+        const closeThemeEditorBtn = document.getElementById('closeThemeEditorBtn');
+        const openThemeEditorBtn = document.getElementById('themeToggle');
+
+        openThemeEditorBtn.addEventListener('click', () => {
+            themeEditorModal.classList.add('open');
+            renderThemeCards();
+        });
+
+        closeThemeEditorBtn.addEventListener('click', () => {
+            themeEditorModal.classList.remove('open');
+        });
+
+        themeEditorModal.addEventListener('click', (e) => {
+            if (e.target === themeEditorModal) {
+                themeEditorModal.classList.remove('open');
+            }
+        });
+
+        function renderThemeCards() {
+            themeGrid.innerHTML = '';
+            const currentActiveTheme = localStorage.getItem('currentTheme') || themes[0].name;
+
+            themes.forEach(theme => {
+                const themeCard = document.createElement('div');
+                themeCard.className = `theme-card rounded-xl p-4 cursor-pointer transition-all duration-200 hover:scale-103 transform flex flex-col items-center justify-center text-center`;
+                if (theme.name === currentActiveTheme) {
+                    themeCard.classList.add('active');
+                }
+                themeCard.style.backgroundColor = 'var(--secondary-bg)';
+
+                themeCard.innerHTML = `
+                    <div class="w-full h-24 rounded-lg mb-3 theme-preview-box ${theme.name === currentActiveTheme ? 'active-border' : ''}" style="background: ${theme.previewGradient}; border-color: var(--border-color);"></div>
+                    <h3 class="text-xl font-semibold" style="color: var(--text-primary);">${theme.name}</h3>
+                    <p class="text-sm" style="color: var(--text-secondary);">${theme.name === currentActiveTheme ? 'Active' : 'Click to activate'}</p>
+                `;
+                themeCard.addEventListener('click', () => {
+                    applyTheme(theme.name);
+                    renderThemeCards();
+                });
+                themeGrid.appendChild(themeCard);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeTheme);
+    </script>
+</body>
+</html>
